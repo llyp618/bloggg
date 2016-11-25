@@ -1,7 +1,10 @@
 html,body {
 	height: 100%;
 }
-#app {
+body {
+	background: #F3F9FF;
+}
+#app,.page{
 	height: 100%;
 	overflow: hidden;
 }

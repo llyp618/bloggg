@@ -12,7 +12,7 @@ class LeftMenu extends React.Component {
 	}               //不需要逗号 ","
 
 	renderData(data){
-		return data.map((v,i)=>{           //es5 新增map方法
+		return data.map((v,i)=>{           //es5 新增map方法 返回数组
 			return  <LeftMenuLi key={i} href={v.href} title={v.title} />
 		})
 	}

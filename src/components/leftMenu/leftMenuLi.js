@@ -1,10 +1,10 @@
 import React from 'react';
-
+import { Link } from 'react-router';
 class LeftMenuLi extends React.Component {
 	render(){
 		return (
 			<li>
-				<a href={this.props.href}>{this.props.title}</a>
+				<Link to={this.props.href}>{this.props.title}</Link>
 			</li>
 		)
 	}
