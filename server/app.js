@@ -11,7 +11,7 @@ app.use(express.static(path.resolve(__dirname, '../dist')));  //修改静态资�
 
 app.get('/',function(req,res){
 	res.sendFile(path.resolve(__dirname,'../dist/index.html'));
-})
+});
 var server = app.listen(3000,function(){
 	var host = server.address().address;
 	var port = server.address().port;
