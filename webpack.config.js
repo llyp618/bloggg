@@ -34,6 +34,11 @@ module.exports = {
 				test:/\.less$/,
 				exclude:/node_modules/,
 				loader:'style-loader!css-loader!postcss!less-loader'   //webpack使用其他工具时一定要同时装*-loader，否则出现奇怪的错误
+			},
+			{
+				test:/\.(png|jpg|svg|gif)$/,
+				exclude:/node_modules/,
+				loader:'url-loader?limit=1000000'
 			}
 		]
 	},
