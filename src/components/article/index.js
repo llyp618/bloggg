@@ -10,7 +10,7 @@ class Article extends React.Component {
 		const getStyle = () =>{
 			return {
 				fontSize:16,
-				lineHeight:2
+				lineHeight:3
 			}
 		}
 		return (
