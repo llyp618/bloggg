@@ -18,7 +18,7 @@ class Blog extends React.Component {
 				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
 				    </CardText>
 				    <CardActions>
-				      <FlatButton><Link className="link" to="/article">查看更多</Link></FlatButton>
+				      <Link className="link" to="/article"><FlatButton>查看更多</FlatButton></Link>
 				    </CardActions>
 				  </Card>
 				  <Card className="article-card">
@@ -30,7 +30,7 @@ class Blog extends React.Component {
 				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
 				    </CardText>
 				    <CardActions>
-				    	<FlatButton><Link className="link" to="/article">查看更多</Link></FlatButton>
+				      <Link className="link" to="/article"><FlatButton>查看更多</FlatButton></Link>
 				    </CardActions>
 				  </Card>
 				  <Card className="article-card">
@@ -42,7 +42,7 @@ class Blog extends React.Component {
 				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
 				    </CardText>
 				    <CardActions>
-				    	<FlatButton><Link className="link" to="/article">查看更多</Link></FlatButton>
+				      <Link className="link" to="/article"><FlatButton>查看更多</FlatButton></Link>
 				    </CardActions>
 				  </Card>
 				</Page>

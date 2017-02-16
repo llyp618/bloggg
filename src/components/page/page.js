@@ -18,8 +18,8 @@ class Page extends React.Component {
 	render(){
 		return (
 			<MuiThemeProvider>
-				<div className="main-page">
-					<AppBar title="Hello World" onLeftIconButtonTouchTap={this.drawerToggle} />
+				<div className="main-page" style={{paddingTop:64}}>
+					<AppBar title="Hello World" onLeftIconButtonTouchTap={this.drawerToggle} style={{position:"fixed",top:0}}/>
 					<Drawer open={this.state.open} docked={false} onRequestChange={(open) => this.setState({open})} >
 						<AppBar 
 							title={<Link to="/" className="link" style={{color:"#fff"}}>Home</Link>}

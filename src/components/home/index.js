@@ -6,6 +6,9 @@ import {Link} from 'react-router';
 import Paper from 'material-ui/Paper';
 import FontIcon from 'material-ui/FontIcon';
 import './home.less';
+import blogImg from '../../images/blog.svg';
+import dailyImg from '../../images/dailylife.svg';
+import spaceImg from '../../images/space.svg';
 class EntryPaper extends React.Component {
 	constructor(props) {
 		super(props);
@@ -42,6 +45,7 @@ class Entry extends React.Component {
 							My Blog
 						</div>
 						<div className="entry-paper-body">
+							<img src={blogImg} width="90%" alt=""/>
 						</div>
 					</Link>
 				</EntryPaper>
@@ -51,6 +55,7 @@ class Entry extends React.Component {
 							My DailyLife
 						</div>
 						<div className="entry-paper-body">
+							<img src={dailyImg} width="90%" alt=""/>
 						</div>
 					</Link>
 				</EntryPaper>
@@ -60,6 +65,7 @@ class Entry extends React.Component {
 							My Personal Space
 						</div>
 						<div className="entry-paper-body">
+							<img src={spaceImg} width="90%" alt=""/>
 						</div>
 					</Link>
 				</EntryPaper>
