@@ -15,7 +15,13 @@ module.exports = {
 		contentBase:'./dist',
 		port:6767,
 		inline:true,
-		colors:true
+		colors:true,
+		proxy:{            //代理请求，后端开发接口
+			'/api':{
+				target:'http://localhost:3000',
+				secure:false
+			}
+		}
 	},
 	postcss:[autoprefixer],
 	module:{

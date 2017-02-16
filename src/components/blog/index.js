@@ -5,46 +5,51 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
 class Blog extends React.Component {
-
+	constructor(props){
+		super(props);
+		this.state = {
+			blogList : [
+				// {
+				// 		title:'',
+				// 		subtitle:'',
+				// 		text:'',
+				// 		id:''
+				// }
+			]
+		}
+	}
+	componentDidMount(){
+		fetch('/api/bloglist')
+			.then((res) => {
+				return res.json()
+			})
+			.then((data) => {
+				this.setState({
+					blogList : data.blogList
+				})
+			})
+	}
 	render(){
+
+		let CardList = [];
+
+		this.state.blogList.map((data,i) => {
+			CardList.push(
+				<Card className="article-card" key={data.id}>
+			    <CardTitle title={data.title} subtitle={data.subtitle} />
+			    <CardText>
+			      {data.text}
+			    </CardText>
+			    <CardActions>
+			      <Link className="link" to="/article"><FlatButton>查看更多</FlatButton></Link>
+			    </CardActions>
+			  </Card>
+			)
+		})
+
 		return (
 				<Page>
-					<Card className="article-card">
-				    <CardTitle title="Card title" subtitle="Card subtitle" />
-				    <CardText>
-				      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-				      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-				    </CardText>
-				    <CardActions>
-				      <Link className="link" to="/article"><FlatButton>查看更多</FlatButton></Link>
-				    </CardActions>
-				  </Card>
-				  <Card className="article-card">
-				    <CardTitle title="Card title" subtitle="Card subtitle" />
-				    <CardText>
-				      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-				      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-				    </CardText>
-				    <CardActions>
-				      <Link className="link" to="/article"><FlatButton>查看更多</FlatButton></Link>
-				    </CardActions>
-				  </Card>
-				  <Card className="article-card">
-				    <CardTitle title="Card title" subtitle="Card subtitle" />
-				    <CardText>
-				      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-				      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-				    </CardText>
-				    <CardActions>
-				      <Link className="link" to="/article"><FlatButton>查看更多</FlatButton></Link>
-				    </CardActions>
-				  </Card>
+					{CardList}
 				</Page>
 			)
 	}
