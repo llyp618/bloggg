@@ -32,7 +32,9 @@ class Page extends React.Component {
 							<MenuItem><Link className="link">My Personal Space</Link></MenuItem>
 						</Menu>
 					</Drawer>
-					{this.props.children}
+					<div className="main-content" style={{minHeight:500}}>
+						{this.props.children}
+					</div>
 					<div className="footer">
 					</div>
 				</div>
