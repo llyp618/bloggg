@@ -4,6 +4,7 @@ import Page from '../../partial/page/page.js';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
+import Loading from '../../partial/loading/loading';
 class Article extends React.Component {
 
 	constructor(props){
@@ -14,7 +15,8 @@ class Article extends React.Component {
 				//subtitle:'',
 				//text:'',
 				//id
-			}
+			},
+			loaded:false
 		};
 		this.style = {
 			cardText : {
@@ -39,11 +41,19 @@ class Article extends React.Component {
 		})
 		.then((data) => {
 			this.setState({
-				articleContent : data.article
+				articleContent : data.article,
+				loaded:true
 			})
 		})
 	}
 	render(){
+		if(!this.state.loaded){
+			return (
+				<Page>
+					<Loading words="加载中" />
+				</Page>
+			)
+		}
 		return (
 				<Page>
 					<Card className="article-card" >

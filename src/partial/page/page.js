@@ -14,6 +14,9 @@ class Page extends React.Component {
 	}
 	drawerToggle = () => this.setState({open:!this.state.open});
 	handleClose = () => this.setState({open: false});
+	componentWillMount() {
+		window.scrollTo(0,0)
+	}
 	render(){
 		return (
 			<MuiThemeProvider>
