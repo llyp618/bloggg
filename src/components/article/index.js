@@ -1,56 +1,59 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Page from '../page/page.js';
+import Page from '../../partial/page/page.js';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
 class Article extends React.Component {
-	
-	render(){
-		const getStyle = () =>{
-			return {
+
+	constructor(props){
+		super(props);
+		this.state = {
+			articleContent:{
+				//title:'',
+				//subtitle:'',
+				//text:'',
+				//id
+			}
+		};
+		this.style = {
+			cardText : {
 				fontSize:16,
 				lineHeight:2
 			}
 		}
+	}
+	componentDidMount() {
+		let articleId = this.props.params.id;
+		fetch('/api/article',{
+			method:'POST',
+			headers:{
+				'Content-Type':'application/json'
+			},
+			body:JSON.stringify({
+				id:articleId
+			})
+		})
+		.then((res) => {
+			return res.json()
+		})
+		.then((data) => {
+			this.setState({
+				articleContent : data.article
+			})
+		})
+	}
+	render(){
 		return (
 				<Page>
-					<Card className="article-card">
-				    <CardTitle title="Card title" subtitle="Card subtitle" />
-				    <CardText style={getStyle()}>
-				      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-				      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.<br />
-				      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-				      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.<br />
-				      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-				      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.<br />
-				      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-				      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.<br />
-				      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-				      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.<br />
-				      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-				      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.<br />
-				      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-				      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.<br />
-				      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-				      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-				      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.<br />
+					<Card className="article-card" >
+				    <CardTitle title={this.state.articleContent.title} subtitle={this.state.articleContent.subtitle} />
+				    <CardText style={this.style.cardText}>
+				      {this.state.articleContent.text}
 				    </CardText>
+				    <CardActions>
+				      <Link className="link" to="/blog"><FlatButton label="返回列表" primary={true}></FlatButton></Link>
+				    </CardActions>
 				  </Card>
 				</Page>
 			)

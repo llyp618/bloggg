@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Link} from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';

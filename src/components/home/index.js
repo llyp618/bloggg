@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Page from '../page/page.js';
+import Page from '../../partial/page/page.js';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
 import Paper from 'material-ui/Paper';

@@ -2,9 +2,8 @@
 .link,.link:hover,.link:active,.link:visited {
 	color:rgba(0, 0, 0, 0.870588);
 	text-decoration: none;
-	display: block;
+	display: inline-block;
 	height: 100%;
-	width: 100%;
 }
 .article-card {
 	margin: 20px 20px 0;

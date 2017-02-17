@@ -1,29 +1,15 @@
 var express = require('express')
 var router = express.Router();
-
+var fs = require('fs');
+var path = require('path');
 router.get('/',function(req,res,next){
-	res.json({
-		blogList : [
-			{
-				title : 'lulu',
-				subtitle : '17.2.16',
-				text : '文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本',
-				id : '1'
-			},
-			{
-				title : 'lulu2',
-				subtitle : '17.2.17',
-				text : '文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本',
-				id : '2'
-			},
-
-			{
-				title : 'lulu2',
-				subtitle : '17.2.17',
-				text : '文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本',
-				id : '3'
-			}
-		]
+	fs.readFile(path.resolve(__dirname,'../data/blogList.json'),'utf-8',function(err,data){
+		if(err){
+			throw err
+		}
+		res.json({
+			blogList:JSON.parse(data)  //data是字符串 需要转json对象
+		})
 	})
 })
 
