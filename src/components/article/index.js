@@ -5,6 +5,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
 import Loading from '../../partial/loading/loading';
+import './hightlight.css';
 class Article extends React.Component {
 
 	constructor(props){
@@ -21,7 +22,7 @@ class Article extends React.Component {
 		this.style = {
 			cardText : {
 				fontSize:16,
-				lineHeight:2
+				lineHeight:1.4
 			}
 		}
 	}
@@ -57,16 +58,14 @@ class Article extends React.Component {
 		return (
 				<Page>
 					<Card className="article-card" >
-				    <CardTitle title={this.state.articleContent.title} subtitle={this.state.articleContent.subtitle} />
-				    <CardText style={this.style.cardText}>
-				      {this.state.articleContent.text}
+				    <CardText style={this.style.cardText} dangerouslySetInnerHTML={{__html:this.state.articleContent}}>
 				    </CardText>
 				    <CardActions>
 				      <Link className="link" to="/blog"><FlatButton label="返回列表" primary={true}></FlatButton></Link>
 				    </CardActions>
 				  </Card>
 				</Page>
-			)
+		)
 	}
 }
 
