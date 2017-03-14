@@ -23,7 +23,15 @@ pre {
   background: #282c34;
   border-radius: 4px;
 }
-
+hr {
+  border-color: #FCFCFC;
+}
+h4 {
+  color: #414DFC;
+}
+p {
+  line-height: 32px;
+}
 .hljs {
   display: block;
   overflow-x: auto;

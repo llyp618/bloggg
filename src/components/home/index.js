@@ -42,7 +42,7 @@ class Entry extends React.Component {
 				<EntryPaper>
 					<Link className="link" to="/blog">
 						<div className="entry-paper-header">
-							Blog
+							技术分享
 						</div>
 						<div className="entry-paper-body">
 							<img src={blogImg} width="90%" alt=""/>
@@ -52,7 +52,7 @@ class Entry extends React.Component {
 				<EntryPaper>
 					<Link className="link" to="/daily">
 						<div className="entry-paper-header">
-							Daily
+							我的日常
 						</div>
 						<div className="entry-paper-body">
 							<img src={dailyImg} width="90%" alt=""/>
@@ -60,9 +60,9 @@ class Entry extends React.Component {
 					</Link>
 				</EntryPaper>
 				<EntryPaper>
-					<Link className="link" to="/blog">
+					<Link className="link" to="/space">
 						<div className="entry-paper-header">
-							Space
+							个人空间
 						</div>
 						<div className="entry-paper-body">
 							<img src={spaceImg} width="90%" alt=""/>
@@ -78,7 +78,7 @@ class Home extends React.Component {
 	render(){
 		return (
 				<Page isHome={true} isRightMenu={false}>
-					<h1 className="website-title">My Blog</h1>
+					<h1 className="website-title">LuLu的博客</h1>
 					<Entry />
 				</Page>
 			)

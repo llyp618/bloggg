@@ -19,7 +19,7 @@ class App extends React.Component {  //组件名首字母一定要大写
 						</Route>
 						<Route path="/blog" component={Blog}>
 						</Route>
-						<Route path="/article/:id" component={Article}>
+						<Route path="/:type/article/:id" component={Article}>
 						</Route>
 						<Route path="/daily" component={Daily}>
 						</Route>

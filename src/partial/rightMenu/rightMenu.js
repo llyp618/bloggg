@@ -12,7 +12,7 @@ class RightMenu extends React.Component{
 				<Paper >
 					<div className="owner-head">
 						<img src={headerImg} alt=""/>
-						<strong>Info</strong>
+						<strong>LuLu</strong>
 					</div>
 					<Divider />
 					<div className="info-list">

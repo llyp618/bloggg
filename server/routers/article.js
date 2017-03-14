@@ -1,9 +1,9 @@
 var express = require('express')
-var router = express.Router();
-var fs = require('fs');
-var path = require('path');
-var marked = require('marked');
-var highlightJs =  require('highlight.js');
+var router = express.Router()
+var fs = require('fs')
+var path = require('path')
+var marked = require('marked')
+var highlightJs =  require('highlight.js')
 
 marked.setOptions({
 	renderer: new marked.Renderer(),
@@ -15,14 +15,15 @@ marked.setOptions({
   smartLists: true,
   smartypants: false,
   highlight: function (code) {
-    return highlightJs.highlightAuto(code).value;
+    return highlightJs.highlightAuto(code).value
   }
 });
 
 
 router.post('/',function(req,res,next){
-	var id = req.body.id;
-	fs.readFile(path.resolve(__dirname,'../data/md/'+id+'.md'),'utf-8',function(err,data){
+	var id = req.body.id,
+			type = req.body.type
+	fs.readFile(path.resolve(__dirname,'../data/'+type+'List/'+id+'.md'),'utf-8',function(err,data){
 		if(err){
 			throw err
 		}
@@ -31,4 +32,4 @@ router.post('/',function(req,res,next){
 		})
 	})
 })
-module.exports = router;
+module.exports = router

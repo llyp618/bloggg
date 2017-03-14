@@ -27,14 +27,16 @@ class Article extends React.Component {
 		}
 	}
 	componentDidMount() {
-		let articleId = this.props.params.id;
+		let articleId = this.props.params.id,
+				articleType = this.props.params.type
 		fetch('/api/article',{
 			method:'POST',
 			headers:{
 				'Content-Type':'application/json'
 			},
 			body:JSON.stringify({
-				id:articleId
+				id:articleId,
+				type:articleType
 			})
 		})
 		.then((res) => {
@@ -61,7 +63,7 @@ class Article extends React.Component {
 				    <CardText style={this.style.cardText} dangerouslySetInnerHTML={{__html:this.state.articleContent}}>
 				    </CardText>
 				    <CardActions>
-				      <Link className="link" to="/blog"><FlatButton label="返回列表" primary={true}></FlatButton></Link>
+				      <Link className="link" to={`/${this.props.params.type}`}><FlatButton label="返回列表" primary={true}></FlatButton></Link>
 				    </CardActions>
 				  </Card>
 				</Page>
