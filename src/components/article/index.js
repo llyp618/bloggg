@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
 import Loading from '../../partial/loading/loading';
 import './hightlight.css';
+import 'whatwg-fetch';
 class Article extends React.Component {
 
 	constructor(props){

@@ -5,6 +5,7 @@ import Loading from '../../partial/loading/loading';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
+import 'whatwg-fetch';
 class Blog extends React.Component {
 	constructor(props){
 		super(props);
