@@ -1,0 +1,53 @@
+.articleHeader {
+	padding:20px;
+	overflow: hidden;
+	.articleTitle {
+		font-size: 24px;
+		float: left;
+		font-weight: bold;
+	}
+	.articleTime {
+		font-size:14px;
+		color:#333;
+		float: right;
+	}
+	&:after {
+		clear: both;
+		content:'';
+		display: block;
+	}
+}
+.articleHr {
+	margin:0 20px ;
+	border-top: 1px solid #ccc;
+}
+
+.articleComments {
+	margin:20px;
+	padding-bottom: 20px;
+	* {
+		margin:0;
+		padding:0;
+	}
+	ul {
+		margin:20px;
+	}
+	li {
+		list-style-type: none;
+		margin-top: 20px;
+	}
+	.commentName {
+		display: block;
+		font-size: 16px;
+		font-weight: bold;
+		margin-bottom: 15px;
+	}
+	.commentText {
+		font-size: 14px;
+		line-height: 1.3;
+		color:rgba(0, 0, 0, 0.9);
+		background:#eee;
+		border-radius: 2px;
+		padding:10px;
+	}
+}
