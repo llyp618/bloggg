@@ -56,13 +56,13 @@ class Article extends React.Component {
 	render(){
 		if(!this.state.loaded){
 			return (
-				<Page>
+				<Page isLeftMenu={true} isRightMenu={true}>
 					<Loading words="加载中" />
 				</Page>
 			)
 		}
 		return (
-				<Page>
+				<Page isLeftMenu={true} isRightMenu={true}>
 					<Card className="article-card" >
 						<div className="articleHeader">
 							<span className="articleTitle">Javascript闭包 </span>

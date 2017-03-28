@@ -14,10 +14,10 @@ class Page extends React.Component {
 		super(props);
 		this.state = {open:false};
 	}
-	static defaultProps = {
-		isHome : false,
-		isRightMenu : true
-	}
+	static propTypes = {
+		isLeftMenu:React.PropTypes.bool.isRequired,
+		isRightMenu:React.PropTypes.bool.isRequired
+	};
 	drawerToggle = () => this.setState({open:!this.state.open})
 
 	handleClose = () => this.setState({open: false})
@@ -45,7 +45,7 @@ class Page extends React.Component {
 			<MuiThemeProvider>
 				<div className="main-page">
 					<AppBar title="LuLu's Blog" onLeftIconButtonTouchTap={this.drawerToggle} style={{position:"fixed",top:0}}/>
-					<Drawer open={this.props.isHome ? this.state.open : true }  onRequestChange={(open) => this.setState({open})} width={224}>
+					<Drawer open={this.props.isLeftMenu ? true : this.state.open  }  onRequestChange={(open) => this.setState({open})} width={224}>
 						<AppBar 
 							title={<Link to="/" className="link" style={{color:"#fff"}}>Home</Link>}
 					    iconElementLeft={<IconButton><FontIcon className="iconfont icon-home2" /></IconButton>}

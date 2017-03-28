@@ -38,7 +38,7 @@ class Blog extends React.Component {
 		let CardList = [];
 		if(!this.state.loaded){
 			return (
-				<Page>
+				<Page isLeftMenu={true} isRightMenu={true}>
 					<Loading words="加载中" />
 				</Page>
 			)
@@ -58,7 +58,7 @@ class Blog extends React.Component {
 		})
 
 		return (
-				<Page>
+				<Page isLeftMenu={true} isRightMenu={true}>
 					{CardList}
 				</Page>
 			)
