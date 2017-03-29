@@ -21,7 +21,9 @@ class Loading extends React.Component {
 			}
 		}
 	}
-
+	static propTypes = {
+		words:React.PropTypes.string
+	};
 	render(){
 		return (
 				<div style={this.style.div}>

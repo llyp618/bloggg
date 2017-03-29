@@ -27,8 +27,8 @@ class App extends React.Component {  //组件名首字母一定要大写
 						</Route>
 						<Route path="/daily" component={Daily}>
 						</Route>
-						<Redirect from="/space" to="/space/space_blog_list" />
 						<Route path="/space" component={Space}>
+							<IndexRoute component={SpaceBlogList} />
 							<Route path="/space/space_blog_list" component={SpaceBlogList}>
 							</Route>
 							<Route path="/space/space_comment_list" component={SpaceCommentList}>

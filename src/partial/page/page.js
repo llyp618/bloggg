@@ -7,7 +7,7 @@ import Drawer from 'material-ui/Drawer';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RightMenu from '../rightMenu/rightMenu';
+import RightMenu from '../rightMenu';
 import './page.less';
 class Page extends React.Component {
 	constructor(props){

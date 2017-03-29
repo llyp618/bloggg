@@ -35,7 +35,7 @@ class LoginBox extends React.Component{
 		let sAccount = this.refs.account.getValue().replace(/\s/,'');
 		let sPassword = this.refs.password.getValue().replace(/\s/,'');
 		if(!this.verify(sAccount,sPassword)) return false;
-		fetch('/api/space_login',{
+		fetch('/api/space/space_login',{
 			method:'POST',
 			headers:{
 				'Content-Type':'application/json'
@@ -45,6 +45,11 @@ class LoginBox extends React.Component{
 				password:sPassword
 			})
 		}).then((res) => {
+			if(res.status == 200){
+				const token = res.headers.get('access-token');
+				console.log(token)
+				sessionStorage.setItem('access_token',token);
+			}
 			return res.json()
 		})
 		.then((data) => {
@@ -54,7 +59,8 @@ class LoginBox extends React.Component{
 					resMsg:data.msg
 				})
 			}else if (data.status == 1){
-				hashHistory.push('/space')
+				hashHistory.push('/space');
+
 			}
 		})
 	}

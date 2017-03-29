@@ -7,7 +7,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import marked from 'marked';
 import highlightJs from 'highlight.js';
 import '../article/hightlight.css';
-
+import Auth from '../../partial/spaceAuth';
+import Loading from '../../partial/loading/loading';
 marked.setOptions({
 	renderer: new marked.Renderer(),
   gfm: true,
@@ -56,11 +57,28 @@ class SpaceArticleEdit extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state={
+			loaded:false,
 			preview:''
 		}
 	}
+	componentDidMount() {
+		Auth(() => {
+			this.setState({
+				loaded:true
+			})
+		});
+	}
 	render(){
 		const category = ["javascript","css","html"]
+		if(!this.state.loaded){
+			return (
+				<Page isLeftMenu={true} isRightMenu={false}>
+					<div className="space-edit-container">
+						<Loading words="加载中"/>
+					</div>
+				</Page>
+			)
+		}
 		return (
 			<Page isLeftMenu={true} isRightMenu={false}>
 				<div className="space-edit-container">

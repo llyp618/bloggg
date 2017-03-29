@@ -3,17 +3,36 @@ import Page from '../../partial/page/page';
 import {Card} from 'material-ui/Card';
 import {Link} from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
-
+import Auth from '../../partial/spaceAuth';
+import Loading from '../../partial/loading/loading';
 import './space.less';
 
 class Space extends React.Component{
 	constructor(props) {
 		super(props);
-		
+		this.state = {
+			loaded:false
+		}
+	}
+	componentDidMount() {
+		Auth(() => {
+			this.setState({
+				loaded:true
+			})
+		});
 	}
 	render(){
+		if(!this.state.loaded){
+			return (
+				<Page isLeftMenu={true} isRightMenu={false}>
+					<div className="space-container">
+						<Loading words=""/>
+					</div>
+				</Page>
+			)
+		}
 		let sHash = window.location.hash;
-		let isBolgList = sHash === "#/space/space_blog_list" ? true : false;
+		let isBolgList = sHash == "#/space/space_blog_list" || sHash == "#/space" ? true : false;
 		return (
 			<Page isLeftMenu={true} isRightMenu={false}>
 				<div className="space-container">
