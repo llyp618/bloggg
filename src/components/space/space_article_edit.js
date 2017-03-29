@@ -3,10 +3,54 @@ import Page from '../../partial/page/page';
 import TextField from 'material-ui/TextField';
 import AutoComplete from 'material-ui/AutoComplete';
 import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
 import marked from 'marked';
+import highlightJs from 'highlight.js';
 import '../article/hightlight.css';
 
+marked.setOptions({
+	renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  highlight: function (code) {
+    return highlightJs.highlightAuto(code).value
+  }
+});
 
+
+
+class Editor extends React.Component{
+	constructor(props) {
+		super(props);
+		this.state={
+			preview:'',
+		}
+	}
+	handleChange = (e) => {
+		let marks = e.target.value;
+		let preview = marked(marks);
+		this.setState({
+			preview:preview
+		});
+	}
+	render(){
+		return (
+			<div className="article-markdown">
+				<Paper className="edit-area" zDepth={1}>
+					<textarea spellCheck={false} onChange={this.handleChange} placeholder="markdown 编辑区"></textarea>
+				</Paper>
+				<Paper className="preview-area" zDepth={1}  dangerouslySetInnerHTML={{__html:this.state.preview}}>
+					
+				</Paper>
+			</div>
+		)
+	}
+}
 
 class SpaceArticleEdit extends React.Component{
 	constructor(props) {
@@ -14,9 +58,6 @@ class SpaceArticleEdit extends React.Component{
 		this.state={
 			preview:''
 		}
-	}
-	handleChange = (e) => {
-		let marks = e.target.value;
 	}
 	render(){
 		const category = ["javascript","css","html"]
@@ -34,17 +75,9 @@ class SpaceArticleEdit extends React.Component{
 				      filter={AutoComplete.caseInsensitiveFilter}
 				      dataSource={category}
 				    />
+						<RaisedButton label="发 布" secondary={true} className="post-btn" />
 					</div>
-
-					<div className="article-markdown">
-						<Paper className="edit-area" zDepth={1}>
-							<textarea spellCheck="false"  onChange={this.handleChange}>
-							</textarea>
-						</Paper>
-						<Paper className="preview-area" zDepth={1}  dangerouslySetInnerHTML={{__html:this.state.preview}}>
-							
-						</Paper>
-					</div>
+					<Editor />
 				</div>
 			</Page>
 		)
