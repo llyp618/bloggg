@@ -2,6 +2,8 @@ import React from 'react';
 import Page from '../../partial/page/page';
 import TextField from 'material-ui/TextField';
 import AutoComplete from 'material-ui/AutoComplete';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import marked from 'marked';
@@ -9,6 +11,7 @@ import highlightJs from 'highlight.js';
 import '../article/hightlight.css';
 import Auth from '../../partial/spaceAuth';
 import Loading from '../../partial/loading/loading';
+import {hashHistory} from 'react-router';
 marked.setOptions({
 	renderer: new marked.Renderer(),
   gfm: true,
@@ -29,13 +32,18 @@ class Editor extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state={
+			md:this.props.value || '',
 			preview:'',
 		}
 	}
+	// static propTypes = {
+	// 	value:PropTypes.string,
+	// };
 	handleChange = (e) => {
 		let marks = e.target.value;
 		let preview = marked(marks);
 		this.setState({
+			md:marks,
 			preview:preview
 		});
 	}
@@ -43,7 +51,7 @@ class Editor extends React.Component{
 		return (
 			<div className="article-markdown">
 				<Paper className="edit-area" zDepth={1}>
-					<textarea spellCheck={false} onChange={this.handleChange} placeholder="markdown 编辑区"></textarea>
+					<textarea spellCheck={false} onChange={this.handleChange} placeholder="markdown 编辑区" value={this.state.md}></textarea>
 				</Paper>
 				<Paper className="preview-area" zDepth={1}  dangerouslySetInnerHTML={{__html:this.state.preview}}>
 					
@@ -58,16 +66,90 @@ class SpaceArticleEdit extends React.Component{
 		super(props);
 		this.state={
 			loaded:false,
-			preview:''
+			preview:'',
+			dialog:false,
+			dialog_words:'',
+			blog_info:{
+				title:'',
+				classify:'',
+				content:''
+			}
 		}
 	}
 	componentDidMount() {
 		Auth(() => {
-			this.setState({
-				loaded:true
-			})
+			if(this.props.params.blog_id){
+				fetch('/api/space/blog_modify',{
+					method:'POST',
+					headers:{
+						'Content-Type':'application/json'
+					},
+					body:JSON.stringify({
+						_id:this.props.params.blog_id
+					})
+				})
+				.then((res) => {
+					return res.json()
+				})
+				.then((data) => {
+					console.log(data)
+					this.setState({
+						loaded:true,
+						blog_info:{
+							title:data.blog.title,
+							classify:data.blog.classify,
+							content:data.blog.content
+						}
+					})
+				})
+			}else {
+				this.setState({
+					loaded:true
+				})
+			}
 		});
 	}
+	handleSubmit = () => {
+		//这里的处理方式有问题，。
+		let title = this.refs.title.getValue().replace(/(^\s*)|(\s*$)/g, ""),
+				classify = this.refs.classify.state.searchText.replace(/(^\s*)|(\s*$)/g, ""),
+				content = this.refs.content.state.md;//这种获取子组件值的方法是否可取？ 另外一种方法是在子组件事件回调给props执行自定义事件给父组件设置state，应该用哪个？？
+		if(title == '' || classify == '' || content.length < 1){
+			this.setState({
+				dialog:true,
+				dialog_words:'输入信息不完整，请确保文章标题，分类不为空,文章内容不少于100字！'
+			});
+			return false;
+		}
+		fetch('/api/space/blog_create',{
+			method:'POST',
+			headers:{
+				'Content-Type':'application/json'
+			},
+			body:JSON.stringify({
+				title:title,
+				classify:classify,
+				content:content
+			})
+		}).then((res) =>{
+			return res.json();
+		}).then((data) => {
+			if(data.status == 0){
+				this.setState({
+					dialog:true,
+					dialog_words:'保存失败！请检查服务！'
+				});
+			}else {
+				hashHistory.push('/space/space_blog_list');
+			}
+		})
+	}
+	handleDialogClose = () => {
+		this.setState({
+			dialog:false
+		})
+	}
+	
 	render(){
 		const category = ["javascript","css","html"]
 		if(!this.state.loaded){
@@ -86,17 +168,35 @@ class SpaceArticleEdit extends React.Component{
 						<TextField
 				      hintText="文章标题"
 				      floatingLabelText="文章标题"
+				      ref="title"
+				      defaultValue={this.state.blog_info.title}
 				    />
 				    &nbsp;&nbsp;&nbsp;&nbsp;
 				    <AutoComplete
 				      floatingLabelText="文章分类"
 				      filter={AutoComplete.caseInsensitiveFilter}
 				      dataSource={category}
+				      ref="classify"
+				      searchText={this.state.blog_info.classify}
 				    />
-						<RaisedButton label="发 布" secondary={true} className="post-btn" />
+						<RaisedButton label="发 布" secondary={true} className="post-btn" onClick={this.handleSubmit} />
 					</div>
-					<Editor />
+					<Editor value={this.state.blog_info.content} ref="content" />
 				</div>
+
+				<Dialog
+          actions={
+          	<FlatButton
+			        label="确定"
+			        primary={true}
+			        onTouchTap={this.handleDialogClose}
+			      />
+			    }
+          modal={true}
+          open={this.state.dialog}
+        >
+         	{this.state.dialog_words}
+        </Dialog>
 			</Page>
 		)
 	}

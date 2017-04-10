@@ -2,7 +2,7 @@ import React from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import Auth from '../../partial/spaceAuth';
-
+import {Link} from 'react-router';
 import Loading from '../../partial/loading/loading';
 class SpaceBlogList extends React.Component{
 	constructor(props) {
@@ -13,10 +13,20 @@ class SpaceBlogList extends React.Component{
 	}
 	componentDidMount() {
 		Auth(() => {
-			this.setState({
-				loaded:true
-			});
+			fetch('/api/bloglist')
+				.then((res) => {
+					return res.json()
+				})
+				.then((data) => {
+					this.setState({
+						loaded:true,
+						blogList:data.blogs
+					});
+				})
 		});
+	}
+	handleDelete = (e) => {
+		console.log(e.currentTarget)
 	}
 	render(){
 		if(!this.state.loaded){
@@ -26,6 +36,24 @@ class SpaceBlogList extends React.Component{
 				</div>
 			)
 		}
+		let TableRows = [];
+		this.state.blogList.map((data,i) => {
+			TableRows.push(
+				<TableRow selectable={false} key={i}>
+	        <TableRowColumn>1</TableRowColumn>
+	        <TableRowColumn>{data.classify}</TableRowColumn>
+	        <TableRowColumn>{data.title}</TableRowColumn>
+	        <TableRowColumn>{data.create_time}</TableRowColumn>
+	        <TableRowColumn>
+	        	<Link to={`/space/space_article_edit/${data._id}`}>
+	        		<RaisedButton label="修 改" primary={true} />
+	        	</Link>
+	        	&nbsp;&nbsp;&nbsp;&nbsp;
+	        	<RaisedButton label="删 除" data-blogId={data._id} onClick={this.handleDelete}/>
+	        </TableRowColumn>
+	      </TableRow>
+			)
+		})
 		return (
 			<div className="contents-table">
 				 <Table>
@@ -39,39 +67,7 @@ class SpaceBlogList extends React.Component{
 			      </TableRow>
 			    </TableHeader>
 			    <TableBody displayRowCheckbox={false}>
-			      <TableRow selectable={false}>
-			        <TableRowColumn>1</TableRowColumn>
-			        <TableRowColumn>javascript</TableRowColumn>
-			        <TableRowColumn>Javascript闭包</TableRowColumn>
-			        <TableRowColumn>2017.3.14</TableRowColumn>
-			        <TableRowColumn>
-			        	<RaisedButton label="修 改" primary={true} />
-			        	&nbsp;&nbsp;&nbsp;&nbsp;
-			        	<RaisedButton label="删 除" />
-			        </TableRowColumn>
-			      </TableRow>
-			      <TableRow selectable={false}>
-			        <TableRowColumn>1</TableRowColumn>
-			        <TableRowColumn>javascript</TableRowColumn>
-			        <TableRowColumn>Javascript闭包</TableRowColumn>
-			        <TableRowColumn>2017.3.14</TableRowColumn>
-			        <TableRowColumn>
-			        	<RaisedButton label="修 改" primary={true} />
-			        	&nbsp;&nbsp;&nbsp;&nbsp;
-			        	<RaisedButton label="删 除"  />
-			        </TableRowColumn>
-			      </TableRow>
-			      <TableRow selectable={false}>
-			        <TableRowColumn>1</TableRowColumn>
-			        <TableRowColumn>javascript</TableRowColumn>
-			        <TableRowColumn>Javascript闭包</TableRowColumn>
-			        <TableRowColumn>2017.3.14</TableRowColumn>
-			        <TableRowColumn>
-			        	<RaisedButton label="修 改" primary={true} />
-			        	&nbsp;&nbsp;&nbsp;&nbsp;
-			        	<RaisedButton label="删 除"  />
-			        </TableRowColumn>
-			      </TableRow>
+			      {TableRows}
 			    </TableBody>
 			  </Table>
 			</div>

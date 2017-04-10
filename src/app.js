@@ -34,7 +34,7 @@ class App extends React.Component {  //组件名首字母一定要大写
 							<Route path="/space/space_comment_list" component={SpaceCommentList}>
 							</Route>
 						</Route>
-						<Route path="/space/space_article_edit" component={SpaceArticleEdit}>
+						<Route path="/space/space_article_edit(/:blog_id)" component={SpaceArticleEdit}>
 						</Route>
 						<Route path="/space/space_login" component={SpaceLogin}>
 						</Route>
