@@ -10,15 +10,16 @@ class Blog extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			loaded:false,
-			blogList : [
-				// {
-				// 		title:'',
-				// 		subtitle:'',
-				// 		text:'',
-				// 		id:''
-				// }
-			]
+			loaded:false
+		}
+		this.style = {
+			blog_time:{
+				fontSize:14,
+				color:'#333',
+				position:'absolute',
+				top:20,
+				right:16
+			}
 		}
 	}
 	componentDidMount(){
@@ -29,7 +30,7 @@ class Blog extends React.Component {
 			.then((data) => {
 				this.setState({
 					loaded:true,
-					blogList : data.blogList
+					blogList : data.blogs
 				})
 			})
 	}
@@ -45,13 +46,15 @@ class Blog extends React.Component {
 		}
 		this.state.blogList.map((data,i) => {
 			CardList.push(
-				<Card className="article-card" key={data.id}>
-			    <CardTitle title={data.title} subtitle={data.subtitle} />
+				<Card className="article-card" key={i}>
+			    <CardTitle title={data.title} subtitle={data.classify}>
+			    	<span style={this.style.blog_time}>{data.create_time}</span>
+			    </CardTitle>
 			    <CardText>
-			      {data.text}
+			      {data.info}
 			    </CardText>
 			    <CardActions>
-			      <Link className="link" to={`/blog/article/${data.id}`}><FlatButton>查看更多</FlatButton></Link>
+			      <Link className="link" to={`/blog/article/${data._id}`}><FlatButton>查看更多</FlatButton></Link>
 			    </CardActions>
 			  </Card>
 			)

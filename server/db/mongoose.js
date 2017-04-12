@@ -18,6 +18,7 @@ module.exports = {
 		title:String,
 		classify:String,
 		create_time:String,
-		content:String
+		content:String,
+		info:String
 	}))
 }

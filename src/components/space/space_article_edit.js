@@ -72,14 +72,21 @@ class SpaceArticleEdit extends React.Component{
 			blog_info:{
 				title:'',
 				classify:'',
-				content:''
+				content:'',
+				_id:'',
+				info:''
+			}
+		}
+		this.style={
+			textfield:{
+				color:'#78828F'
 			}
 		}
 	}
 	componentDidMount() {
 		Auth(() => {
 			if(this.props.params.blog_id){
-				fetch('/api/space/blog_modify',{
+				fetch('/api/space/blog_getOne',{
 					method:'POST',
 					headers:{
 						'Content-Type':'application/json'
@@ -98,7 +105,9 @@ class SpaceArticleEdit extends React.Component{
 						blog_info:{
 							title:data.blog.title,
 							classify:data.blog.classify,
-							content:data.blog.content
+							content:data.blog.content,
+							info:data.blog.info,
+							_id:this.props.params.blog_id
 						}
 					})
 				})
@@ -112,16 +121,17 @@ class SpaceArticleEdit extends React.Component{
 	handleSubmit = () => {
 		//这里的处理方式有问题，。
 		let title = this.refs.title.getValue().replace(/(^\s*)|(\s*$)/g, ""),
+				info = this.refs.info.getValue(),
 				classify = this.refs.classify.state.searchText.replace(/(^\s*)|(\s*$)/g, ""),
 				content = this.refs.content.state.md;//这种获取子组件值的方法是否可取？ 另外一种方法是在子组件事件回调给props执行自定义事件给父组件设置state，应该用哪个？？
-		if(title == '' || classify == '' || content.length < 1){
+		if(title == '' || classify == '' || info == '' || content.length < 1){
 			this.setState({
 				dialog:true,
-				dialog_words:'输入信息不完整，请确保文章标题，分类不为空,文章内容不少于100字！'
+				dialog_words:'输入信息不完整，请确保文章标题，分类，简介不为空,文章内容不少于100字！'
 			});
 			return false;
 		}
-		fetch('/api/space/blog_create',{
+		fetch('/api/space/blog_create_modify',{
 			method:'POST',
 			headers:{
 				'Content-Type':'application/json'
@@ -129,7 +139,9 @@ class SpaceArticleEdit extends React.Component{
 			body:JSON.stringify({
 				title:title,
 				classify:classify,
-				content:content
+				content:content,
+				info:info,
+				_id:this.state.blog_info._id
 			})
 		}).then((res) =>{
 			return res.json();
@@ -170,6 +182,7 @@ class SpaceArticleEdit extends React.Component{
 				      floatingLabelText="文章标题"
 				      ref="title"
 				      defaultValue={this.state.blog_info.title}
+				      inputStyle={this.style.textfield}
 				    />
 				    &nbsp;&nbsp;&nbsp;&nbsp;
 				    <AutoComplete
@@ -178,8 +191,21 @@ class SpaceArticleEdit extends React.Component{
 				      dataSource={category}
 				      ref="classify"
 				      searchText={this.state.blog_info.classify}
+				      inputStyle={this.style.textfield}
 				    />
 						<RaisedButton label="发 布" secondary={true} className="post-btn" onClick={this.handleSubmit} />
+					</div>
+					<div className="article-info">
+						<TextField
+				      hintText="文章简介"
+				      multiLine={true}
+				      rows={1}
+				      rowsMax={4}
+				      fullWidth={true}
+				      ref="info"
+				      defaultValue={this.state.blog_info.info}
+				      textareaStyle={this.style.textfield}
+				    />
 					</div>
 					<Editor value={this.state.blog_info.content} ref="content" />
 				</div>

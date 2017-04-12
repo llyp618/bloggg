@@ -1,16 +1,13 @@
 var express = require('express')
 var router = express.Router()
-var fs = require('fs')
-var path = require('path')
+var blogModel = require('../models/blog.model')
+
 router.get('/',function(req,res,next){
-	fs.readFile(path.resolve(__dirname,'../data/dailyList.json'),'utf-8',function(err,data){
-		if(err){
-			throw err
-		}
+	blogModel.getList({classify:'daily'},['-__v','-content'],function(docs){
 		res.json({
-			dailyList:JSON.parse(data)  //data是字符串 需要转json对象
+			blogs:docs
 		})
-	})
+	});
 })
 
 module.exports = router

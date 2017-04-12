@@ -36,18 +36,37 @@ router.post('/space_login',function(req,res,next){
 		})
 	}
 })
-// 新建博客文章
-router.post('/blog_create',function(req,res,next){
-	var title = req.body.title
-	var classify = req.body.classify
-	var content = req.body.content
-	var create_time = moment().format('YYYY-MMMM-Do,h:mm:ss')
-	blogModel.create({
+// 新建博客文章(修改)
+router.post('/blog_create_modify',function(req,res,next){
+	var title = req.body.title,
+	    classify = req.body.classify,
+	    content = req.body.content
+	    _id = req.body._id,
+	    info = req.body.info,
+	    create_time = moment().format('YYYY-MMMM-Do,h:mm:ss')
+	var blog = {
 		title:title,
 		classify:classify,
 		content:content,
+		info:info,
 		create_time:create_time
-	},function(status){
+	}
+	//如果_id不为空 则修改 
+	if ( _id != '' && _id.length != 0){
+		blogModel.modifyOne(blog,_id,function(status){
+			if(status == 'failed') {
+				res.json({
+					status:0
+				})
+			}else if (status == 'success'){
+				res.json({
+					status:1
+				})
+			}
+		})
+		return false;
+	}
+	blogModel.create(blog,function(status){
 		if(status == 'failed') {
 			res.json({
 				status:0
@@ -60,7 +79,7 @@ router.post('/blog_create',function(req,res,next){
 	})
 })
 
-router.post('/blog_modify',function(req,res,next){
+router.post('/blog_getOne',function(req,res,next){
 	var _id = req.body._id
 	blogModel.getOne(_id,function(doc){
 		res.json({
@@ -71,9 +90,31 @@ router.post('/blog_modify',function(req,res,next){
 
 
 
+router.get('/bloglist',function(req,res,next){
+	blogModel.getList({},['-__v','-content'],function(docs){
+		res.json({
+			blogs:docs
+		})
+	});
+})
 
-
-
+router.post('/blog_delete',function(req,res,next){
+	var _id = req.body._id
+	blogModel.removeOne(_id,function(status){
+		if(status == 'failed') {
+			res.json({
+				status:0
+			})
+		}else if (status == 'success'){
+			blogModel.getList({},['-__v','-content'],function(docs){
+				res.json({
+					blogs:docs,
+					status:1
+				})
+			});
+		}
+	})
+})
 
 
 

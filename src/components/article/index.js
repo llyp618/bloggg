@@ -14,12 +14,7 @@ class Article extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			articleContent:{
-				//title:'',
-				//subtitle:'',
-				//text:'',
-				//id
-			},
+			blog:{},
 			loaded:false
 		};
 		this.style = {
@@ -48,7 +43,7 @@ class Article extends React.Component {
 		})
 		.then((data) => {
 			this.setState({
-				articleContent : data.article,
+				blog : data.blog,
 				loaded:true
 			})
 		})
@@ -65,11 +60,11 @@ class Article extends React.Component {
 				<Page isLeftMenu={true} isRightMenu={true}>
 					<Card className="article-card" >
 						<div className="articleHeader">
-							<span className="articleTitle">Javascript闭包 </span>
-							<span className="articleTime">2017-3-14</span>
+							<span className="articleTitle">{this.state.blog.title} </span>
+							<span className="articleTime">{this.state.blog.create_time}</span>
 						</div>
 						<hr className="articleHr" />
-					   	<CardText  style={this.style.cardText} dangerouslySetInnerHTML={{__html:this.state.articleContent}}>
+					   	<CardText  style={this.style.cardText} dangerouslySetInnerHTML={{__html:this.state.blog.content}}>
 					       </CardText>
 					       <CardActions>
 						      <Link className="link" to={`/${this.props.params.type}`}><FlatButton label="返回列表" primary={true}></FlatButton></Link>

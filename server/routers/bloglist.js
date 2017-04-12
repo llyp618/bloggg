@@ -21,8 +21,7 @@ var router = express.Router()
 var blogModel = require('../models/blog.model')
 
 router.get('/',function(req,res,next){
-	blogModel.getList(['-__v','-content'],function(docs){
-		console.log(docs)
+	blogModel.getList({classify:'daily'},['-__v','-content'],function(docs){
 		res.json({
 			blogs:docs
 		})
