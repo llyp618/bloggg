@@ -65,9 +65,9 @@ class Article extends React.Component {
 						</div>
 						<hr className="articleHr" />
 					   	<CardText  style={this.style.cardText} dangerouslySetInnerHTML={{__html:this.state.blog.content}}>
-					       </CardText>
-					       <CardActions>
-						      <Link className="link" to={`/${this.props.params.type}`}><FlatButton label="返回列表" primary={true}></FlatButton></Link>
+					    </CardText>
+					  <CardActions style={{textAlign:'right'}}>
+						      <Link className="link" to={`/${this.props.params.type}`}><FlatButton label="返回列表" secondary={true}></FlatButton></Link>
 						</CardActions>
 				  	</Card>
 				  	<Card className="articleComments">

@@ -15,7 +15,7 @@ class Blog extends React.Component {
 		this.style = {
 			blog_time:{
 				fontSize:14,
-				color:'#333',
+				color:'#FF6C37',
 				position:'absolute',
 				top:20,
 				right:16
@@ -53,8 +53,8 @@ class Blog extends React.Component {
 			    <CardText>
 			      {data.info}
 			    </CardText>
-			    <CardActions>
-			      <Link className="link" to={`/daily/article/${data._id}`}><FlatButton>查看更多</FlatButton></Link>
+			    <CardActions style={{textAlign:'right'}}>
+			      <Link className="link" to={`/daily/article/${data._id}`}><FlatButton primary={true}>查看更多</FlatButton></Link>
 			    </CardActions>
 			  </Card>
 			)

@@ -3,7 +3,7 @@ var router = express.Router()
 var blogModel = require('../models/blog.model')
 
 router.get('/',function(req,res,next){
-	blogModel.getList({classify:'daily'},['-__v','-content'],function(docs){
+	blogModel.getList({classify:'Daily'},['-__v','-content'],function(docs){
 		res.json({
 			blogs:docs
 		})
