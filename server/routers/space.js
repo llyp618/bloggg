@@ -1,5 +1,6 @@
 var express = require('express')
 var blogModel = require('../models/blog.model')
+var classifyModel = require('../models/classify.model')
 var moment = require('moment')
 var router = express.Router()
 var SECRET = 'secret'
@@ -59,6 +60,7 @@ router.post('/blog_create_modify',function(req,res,next){
 					status:0
 				})
 			}else if (status == 'success'){
+				classifyModel.add(classify)  //添加文章类型表
 				res.json({
 					status:1
 				})
@@ -72,6 +74,7 @@ router.post('/blog_create_modify',function(req,res,next){
 				status:0
 			})
 		}else if (status == 'success'){
+			classifyModel.add(classify)
 			res.json({
 				status:1
 			})
@@ -89,7 +92,7 @@ router.post('/blog_getOne',function(req,res,next){
 })
 
 
-
+//获取文章列表
 router.get('/bloglist',function(req,res,next){
 	blogModel.getList({},['-__v','-content'],function(docs){
 		res.json({
@@ -97,15 +100,16 @@ router.get('/bloglist',function(req,res,next){
 		})
 	});
 })
-
+// 删除文章
 router.post('/blog_delete',function(req,res,next){
 	var _id = req.body._id
-	blogModel.removeOne(_id,function(status){
+	blogModel.removeOne(_id,function(status,clfy){
 		if(status == 'failed') {
 			res.json({
 				status:0
 			})
 		}else if (status == 'success'){
+			classifyModel.delete(clfy)
 			blogModel.getList({},['-__v','-content'],function(docs){
 				res.json({
 					blogs:docs,
@@ -115,8 +119,23 @@ router.post('/blog_delete',function(req,res,next){
 		}
 	})
 })
-
-
+// 获取分类
+router.get('/blog_classify_list',function(req,res,next){
+	classifyModel.getList(function(status,docs){
+		if(status == 'failed'){
+			res.json({
+				classifyList:[]
+			})
+			return false
+		}
+		var list = docs.map(function(v,i){
+			return v.classify
+		})
+		res.json({
+			classifyList:list
+		})
+	})
+})
 
 
 

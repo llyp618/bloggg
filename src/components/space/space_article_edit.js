@@ -75,7 +75,8 @@ class SpaceArticleEdit extends React.Component{
 				content:'',
 				_id:'',
 				info:''
-			}
+			},
+			classify:[]
 		}
 		this.style={
 			textfield:{
@@ -99,7 +100,6 @@ class SpaceArticleEdit extends React.Component{
 					return res.json()
 				})
 				.then((data) => {
-					console.log(data)
 					this.setState({
 						loaded:true,
 						blog_info:{
@@ -115,7 +115,16 @@ class SpaceArticleEdit extends React.Component{
 				this.setState({
 					loaded:true
 				})
-			}
+			};
+			fetch('/api/space/blog_classify_list')
+			.then((res) => {
+				return res.json()
+			})
+			.then((data) => {
+				this.setState({
+					classify:data.classifyList
+				})
+			})
 		});
 	}
 	handleSubmit = () => {
@@ -163,7 +172,7 @@ class SpaceArticleEdit extends React.Component{
 	}
 	
 	render(){
-		const category = ["javascript","css","html"]
+		const category = this.state.classify
 		if(!this.state.loaded){
 			return (
 				<Page isLeftMenu={true} isRightMenu={false}>

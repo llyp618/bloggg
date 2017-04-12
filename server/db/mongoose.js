@@ -20,5 +20,8 @@ module.exports = {
 		create_time:String,
 		content:String,
 		info:String
+	})),
+	Classify:mongoose.model('Classify',new mongoose.Schema({
+		classify:String
 	}))
 }

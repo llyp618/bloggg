@@ -10,12 +10,11 @@ module.exports = {
 			content:blog.content,
 			info:blog.info
 		})
-		return blog.save(function(err){  //保存文档
+		blog.save(function(err){  //保存文档
 			if(err){
 				console.log(err)
 				return cb('failed')
 			}else {
-				console.log('success')
 				return cb('success')
 			}
 		})
@@ -48,13 +47,13 @@ module.exports = {
 				return false;
 			}
 			if(doc){
+				var clfy = doc.classify
 				doc.remove(function(){
 					if(err){
 						console.log(err)
-						return cb('failed')
+						return cb('failed',clfy)
 					}else {
-						console.log('success')
-						return cb('success')
+						return cb('success',clfy)
 					}
 				});
 			}
