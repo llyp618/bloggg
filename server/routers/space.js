@@ -44,7 +44,7 @@ router.post('/blog_create_modify',function(req,res,next){
 	    content = req.body.content
 	    _id = req.body._id,
 	    info = req.body.info,
-	    create_time = moment().format('YYYY-MMMM-Do,h:mm:ss')
+	    create_time = moment().format('YYYY-MM-DD, HH:mm:ss')
 	var blog = {
 		title:title,
 		classify:classify,

@@ -54,7 +54,7 @@ class Blog extends React.Component {
 			      {data.info}
 			    </CardText>
 			    <CardActions>
-			      <Link className="link" to={`/blog/article/${data._id}`}><FlatButton>查看更多</FlatButton></Link>
+			      <Link className="link" to={`/daily/article/${data._id}`}><FlatButton>查看更多</FlatButton></Link>
 			    </CardActions>
 			  </Card>
 			)
