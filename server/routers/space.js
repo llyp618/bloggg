@@ -93,13 +93,31 @@ router.post('/blog_getOne',function(req,res,next){
 
 
 //获取文章列表
-router.get('/bloglist',function(req,res,next){
-	blogModel.getList({},['-__v','-content'],function(docs){
+router.post('/bloglist',function(req,res,next){
+	var currentPage = req.body.currentPage
+	var classify = req.body.classify
+	var filter = {}
+	if(classify != 'all'){
+		filter = {classify:classify}
+	}
+	blogModel.getList(currentPage,filter,['-__v','-content'],function(result,totalPages){
 		res.json({
-			blogs:docs
+			blogs:result,
+			totalPages:totalPages
 		})
-	});
+	})
 })
+
+// //添加了分页的文章列表
+// router.post('/bloglist_page',function(req,res,next){
+// 	blogModel.getListPage(currentPage,{},['-__v','-content'],function(docs){
+// 		res.json({
+// 			blogs:docs
+// 		})
+// 	})
+// })
+
+
 // 删除文章
 router.post('/blog_delete',function(req,res,next){
 	var _id = req.body._id
@@ -109,13 +127,17 @@ router.post('/blog_delete',function(req,res,next){
 				status:0
 			})
 		}else if (status == 'success'){
-			classifyModel.delete(clfy)
-			blogModel.getList({},['-__v','-content'],function(docs){
-				res.json({
-					blogs:docs,
-					status:1
-				})
-			});
+			classifyModel.delete(clfy)  //如果被删除文章类目下没有文章了，删除该类目
+			res.json({
+				status:1
+			})
+			// blogModel.getList(currentPage,{},['-__v','-content'],function(docs,totalPages){
+			// 	res.json({
+			// 		blogs:docs,
+			// 		totalPages:totalPages,
+			// 		status:1
+			// 	})
+			// });
 		}
 	})
 })

@@ -20,13 +20,23 @@ module.exports = {
 		})
 	},
 	// 获取列表：
-	getList:function(filter,project,cb){
-	 	Blog.find(filter,project,{sort:{'_id':-1}},function(err,docs){
+	getList:function(currentPage,filter,project,cb){
+		//每页10篇
+	 	Blog.find(filter,project,{sort:{'_id':-1},skip:10 * (currentPage - 1),limit:10},function(err,docs){
 	 		if(err){
 	 			console.log(err)
 	 			return false;
 	 		}
-	 		return cb(docs)
+	 		var result = docs;
+	 		//查找总页数
+	 		Blog.find(filter,function(err,docs){   
+	 			if(err){
+		 			console.log(err)
+		 			return false
+		 		}
+		 		var totalPages = Math.ceil(docs.length / 10) //总页数返回
+	 			return cb(result,totalPages)
+	 		})
 	 	})
 	},
 	//获取某一篇文章
@@ -34,7 +44,7 @@ module.exports = {
 		Blog.findById(_id,function(err,doc){
 			if(err){
 				console.log(err)
-				return false;
+				return false
 			}
 			return cb(doc)
 		})

@@ -2,10 +2,14 @@ var express = require('express')
 var router = express.Router()
 var blogModel = require('../models/blog.model')
 
-router.get('/',function(req,res,next){
-	blogModel.getList({classify:'Daily'},['-__v','-content'],function(docs){
+router.post('/',function(req,res,next){
+	var currentPage = req.body.currentPage
+	var classify = req.body.classify
+	var filter = {classify:'Daily'}
+	blogModel.getList(currentPage,filter,['-__v','-content'],function(result,totalPages){
 		res.json({
-			blogs:docs
+			blogs:result,
+			totalPages:totalPages
 		})
 	});
 })

@@ -31,3 +31,44 @@ body {
 		
 }
 
+.pagination {
+	padding: 0;
+	margin: 0;
+	margin-top: 20px;
+	text-align: center;
+}
+.pagination li {
+	list-style: none;
+	display: inline-block;
+	margin-left: 10px;
+	border: 1px solid #F9F9F9;
+	cursor: pointer;
+	background:#F9F9F9 ;
+	border-radius: 2px;
+}
+.pagination li.disabled {
+	color: #ccc;
+}
+.pagination li.selected {
+	color: #fff;
+	border: 1px solid rgb(255, 64, 129);
+	background: rgb(255, 64, 129);
+}
+.pagination li.break {
+	border: none;
+	cursor: default;
+	background: none;
+}
+.pagination li a {
+	outline: 0 none;
+	padding: 4px 8px;
+	display: block;
+	min-width: 10px;
+	text-align: center;
+	-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
