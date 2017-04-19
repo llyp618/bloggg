@@ -65,9 +65,9 @@ class Blog extends React.Component {
 		let CardList = [];
 		if(!this.state.loaded){
 			return (
-				<Page isLeftMenu={true} isRightMenu={true}>
+				<div>
 					<Loading words="加载中" />
-				</Page>
+				</div>
 			)
 		}
 		this.state.blogList.map((data,i) => {
@@ -80,14 +80,14 @@ class Blog extends React.Component {
 			      {data.info}
 			    </CardText>
 			    <CardActions style={{textAlign:'right'}}>
-			      <Link className="link" to={`/blog/article/${data._id}`}><FlatButton primary={true}>查看更多</FlatButton></Link>
+			      <Link className="link" to={`/visit/daily/article/${data._id}`}><FlatButton primary={true}>查看更多</FlatButton></Link>
 			    </CardActions>
 			  </Card>
 			)
 		})
 
 		return (
-				<Page isLeftMenu={true} isRightMenu={true}>
+				<div>
 					{CardList}
 				  <ReactPaginate 
 				  pageCount={this.state.totalPages} 
@@ -99,7 +99,7 @@ class Blog extends React.Component {
 				  onPageChange={this.handlePageChange}
 				  >
 				  </ReactPaginate>
-				</Page>
+				</div>
 			)
 	}
 }

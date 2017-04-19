@@ -51,13 +51,13 @@ class Article extends React.Component {
 	render(){
 		if(!this.state.loaded){
 			return (
-				<Page isLeftMenu={true} isRightMenu={true}>
+				<div>
 					<Loading words="加载中" />
-				</Page>
+				</div>
 			)
 		}
 		return (
-				<Page isLeftMenu={true} isRightMenu={true}>
+				<div>
 					<Card className="article-card" >
 						<div className="articleHeader">
 							<span className="articleTitle">{this.state.blog.title} </span>
@@ -67,7 +67,7 @@ class Article extends React.Component {
 					   	<CardText  style={this.style.cardText} dangerouslySetInnerHTML={{__html:this.state.blog.content}}>
 					    </CardText>
 					  <CardActions style={{textAlign:'right'}}>
-						      <Link className="link" to={`/${this.props.params.type}`}><FlatButton label="返回列表" secondary={true}></FlatButton></Link>
+						      <Link className="link" to={`/visit/${this.props.params.type}`}><FlatButton label="返回列表" secondary={true}></FlatButton></Link>
 						</CardActions>
 				  	</Card>
 				  	<Card className="articleComments">
@@ -83,7 +83,7 @@ class Article extends React.Component {
 				  			</li>
 				  		</ul>
 				  	</Card>
-				</Page>
+				</div>
 		)
 	}
 }

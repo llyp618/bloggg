@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Page from '../../partial/page/page.js';
 import Loading from '../../partial/loading/loading';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
@@ -7,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
 import 'whatwg-fetch';
 import ReactPaginate from 'react-paginate';
+import UtilPb from '../../partial/UtilPb';
 class Blog extends React.Component {
 	constructor(props){
 		super(props);
@@ -15,7 +15,7 @@ class Blog extends React.Component {
 			totalPages:1,
 			currentPage:1,
 			blogList:[],
-			classify:'all',
+			classify:this.props.params.classify || 'all' ,
 			classifyList:[]
 		}
 		this.style = {
@@ -29,7 +29,10 @@ class Blog extends React.Component {
 		}
 	}
 	componentDidMount(){
-		this.getBlogList(1,'all');
+		this.getBlogList(1,this.state.classify);
+		UtilPb.subscribe('classifySearch',(v) => {
+			this.getBlogList(1,v);
+		})
 	}
 	getBlogList = (page,classify,cb) => {
 		fetch('/api/bloglist',{
@@ -66,9 +69,7 @@ class Blog extends React.Component {
 		let CardList = [];
 		if(!this.state.loaded){
 			return (
-				<Page isLeftMenu={true} isRightMenu={true}>
 					<Loading words="加载中" />
-				</Page>
 			)
 		}
 		this.state.blogList.map((data,i) => {
@@ -81,14 +82,14 @@ class Blog extends React.Component {
 			      {data.info}
 			    </CardText>
 			    <CardActions style={{textAlign:'right'}}>
-			      <Link className="link" to={`/blog/article/${data._id}`}><FlatButton primary={true}>查看更多</FlatButton></Link>
+			      <Link className="link" to={`/visit/blog/article/${data._id}`}><FlatButton primary={true}>查看更多</FlatButton></Link>
 			    </CardActions>
 			  </Card>
 			)
 		})
 
 		return (
-				<Page isLeftMenu={true} isRightMenu={true}>
+				<div>
 					{CardList}
 				  <ReactPaginate 
 				  pageCount={this.state.totalPages} 
@@ -100,7 +101,7 @@ class Blog extends React.Component {
 				  onPageChange={this.handlePageChange}
 				  >
 				  </ReactPaginate>
-				</Page>
+				</div>
 			)
 	}
 }

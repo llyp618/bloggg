@@ -10,6 +10,7 @@ import Blog from './components/blog';
 import Daily from './components/daily';
 import Space from './components/space';
 import Article from './components/article';
+import Visit from './components/visit';
 import SpaceLogin from './components/space/space_login';
 import SpaceBlogList from './components/space/space_blog_list';
 import SpaceCommentList from './components/space/space_comment_list';
@@ -21,11 +22,14 @@ class App extends React.Component {  //组件名首字母一定要大写
 				<Router history={hashHistory}>
 						<Route path="/" component={Home}>
 						</Route>
-						<Route path="/blog" component={Blog}>
-						</Route>
-						<Route path="/:type/article/:id" component={Article}>
-						</Route>
-						<Route path="/daily" component={Daily}>
+						<Route path="/visit" component={Visit}>
+							<IndexRoute component={Blog} />
+							<Route path="/visit/blog(/:classify)" component={Blog}>
+							</Route>
+							<Route path="/visit/:type/article/:id" component={Article}>
+							</Route>
+							<Route path="/visit/daily" component={Daily}>
+							</Route>
 						</Route>
 						<Route path="/space" component={Space}>
 							<IndexRoute component={SpaceBlogList} />

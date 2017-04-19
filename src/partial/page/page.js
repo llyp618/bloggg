@@ -25,7 +25,6 @@ class Page extends React.Component {
 	itemTouchtapHandler = (event,item,index) => {
 		window.location.hash = item.props.value;
 	}
-
 	componentWillMount() {
 		window.scrollTo(0,0)
 	}
@@ -40,7 +39,19 @@ class Page extends React.Component {
 		 			<div className="main-content">
 						{this.props.children}
 					</div> ;
-		let sHashRoot = window.location.hash.match(/#\/[^\/]*/)[0];
+		// let sHashRoot = window.location.hash.match(/#\/[^\/]*/)[0];
+		let hash = window.location.hash,sHashRoot;
+		switch (0){
+			case hash.search('#/visit/blog'):
+			sHashRoot = '#/visit/blog';
+			break;
+			case hash.search('#/visit/daily'):
+			sHashRoot = '#/visit/daily';
+			break;
+			case hash.search('#/space'):
+			sHashRoot = '#/space';
+			break;
+		}
 		return (
 			<MuiThemeProvider>
 				<div className="main-page">
@@ -52,8 +63,8 @@ class Page extends React.Component {
 					    onTitleTouchTap={this.handleClose}
 				     />
 				     	<Menu width={200} onItemTouchTap={this.itemTouchtapHandler} value={sHashRoot}>
-							<MenuItem value="#/blog" primaryText="Blog" />
-							<MenuItem value="#/daily" primaryText="Daily" />
+							<MenuItem value="#/visit/blog" primaryText="Blog" />
+							<MenuItem value="#/visit/daily" primaryText="Daily" />
 							<MenuItem value="#/space" primaryText="Space" />
 							</Menu>
 					</Drawer>

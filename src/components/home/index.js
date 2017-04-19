@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Page from '../../partial/page/page.js';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
