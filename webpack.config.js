@@ -5,7 +5,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');  //用来生成html
 module.exports = {
 	entry:{
 		js:'./src/app.js',
-		vendor:['react','react-router','react-dom']
+		vendor:['react','react-router','react-dom','whatwg-fetch']
 	},
 	output:{
 		path:'./dist',

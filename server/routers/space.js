@@ -1,6 +1,7 @@
 var express = require('express')
 var blogModel = require('../models/blog.model')
 var classifyModel = require('../models/classify.model')
+var commentModel = require('../models/comment.model')
 var moment = require('moment')
 var router = express.Router()
 var SECRET = 'secret'
@@ -44,7 +45,7 @@ router.post('/blog_create_modify',function(req,res,next){
 	    content = req.body.content
 	    _id = req.body._id,
 	    info = req.body.info,
-	    create_time = moment().format('YYYY-MM-DD, HH:mm:ss')
+	    create_time = moment().format('YYYY-MM-DD HH:mm:ss')
 	var blog = {
 		title:title,
 		classify:classify,
@@ -159,8 +160,22 @@ router.get('/blog_classify_list',function(req,res,next){
 	})
 })
 
-
-
+// 获取评论
+router.post('/get_comments',function(req,res,next){
+	var title = req.body.title
+	var currentPage  = req.body.currentPage
+	if( title == 'all' ) {
+		title = /.*/ig;
+	}
+	commentModel.space_getlist(title,currentPage,function(err,docs){
+    if(err){
+      throw err
+    }
+    res.json({
+      comments:docs
+    })
+  })
+})
 
 
 module.exports = router

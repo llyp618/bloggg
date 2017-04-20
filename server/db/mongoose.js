@@ -23,5 +23,13 @@ module.exports = {
 	})),
 	Classify:mongoose.model('Classify',new mongoose.Schema({
 		classify:String
+	})),
+	Comments:mongoose.model('Comments',new mongoose.Schema({
+		title:String,
+		comment:{
+			create_time:String,
+			commenter:String,
+			content:String
+		}
 	}))
 }

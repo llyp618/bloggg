@@ -5,6 +5,7 @@ import {List,ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
 import Loading from '../../partial/loading/loading';
+import Comment from '../../partial/comment';
 import './hightlight.css';
 import'./article.less';
 import 'whatwg-fetch';
@@ -68,20 +69,8 @@ class Article extends React.Component {
 					  <CardActions style={{textAlign:'right'}}>
 						      <Link className="link" to={`/visit/${this.props.params.type}`}><FlatButton label="返回列表" secondary={true}></FlatButton></Link>
 						</CardActions>
-				  	</Card>
-				  	<Card className="articleComments">
-				  		<CardHeader title="评论留言" titleStyle={{fontSize:20,fontWeight:800}}></CardHeader>
-				  		<ul>
-				  			<li>
-				  				<span className="commentName">ttiancai : </span>
-				  				<p className="commentText">nis sdkj mk klfu sdk mncv kj  cmnv d nvuh snm ldks mcv haioudf nsmc jdf </p>
-				  			</li>
-				  			<li>
-				  				<span className="commentName">ttiancai : </span>
-				  				<p className="commentText">nis sdkj mk klfu sdk mncv kj  cmnv d nvuh snm ldks mcv haioudf nsmc jdf </p>
-				  			</li>
-				  		</ul>
-				  	</Card>
+				  </Card>
+				  <Comment commentTitle={this.state.blog.title}/>
 				</div>
 		)
 	}

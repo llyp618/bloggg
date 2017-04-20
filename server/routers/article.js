@@ -5,7 +5,8 @@ var path = require('path')
 var marked = require('marked')
 var highlightJs =  require('highlight.js')
 var blogModel = require('../models/blog.model')
-
+var commentModel = require('../models/comment.model')
+var moment = require('moment')
 marked.setOptions({
 	renderer: new marked.Renderer(),
   gfm: true,
@@ -43,6 +44,53 @@ router.post('/',function(req,res,next){
 			blog:doc
 		})
 	})
+})
+
+/* 提取评论列表 */ 
+router.post('/getComments',function(req,res,next){
+  var title = req.body.title
+  commentModel.getlist(title,function(err,docs){
+    if(err){
+      throw err
+    }
+    var comments = [];
+    docs.map(function(v,i){
+      comments.push(v.comment)
+    })
+    res.json({
+      comments:comments
+    })
+  })
+})
+
+/* 增加评论 */
+router.post('/createComment',function(req,res,next){
+  var title = req.body.title,
+      commenter = req.body.commenter,
+      content = req.body.content,
+      create_time = moment().format('YYYY-MM-DD HH:mm:ss')
+  var comment = {
+    title:title,
+    comment:{
+      commenter:commenter,
+      content:content,
+      create_time:create_time
+    }
+  }
+  commentModel.create(comment,function(err,doc){
+      if(err){
+        throw err
+        res.json({
+          status:'failed',
+        })
+      }else {
+        res.json({
+          status:'succeed',
+          comment:doc.comment
+        })
+      }
+    }
+  )
 })
 
 module.exports = router
