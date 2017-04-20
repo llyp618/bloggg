@@ -3,10 +3,9 @@ import Page from '../../partial/page/page.js';
 import Loading from '../../partial/loading/loading';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import {Link} from 'react-router';
+import {Link,hashHistory} from 'react-router';
 import 'whatwg-fetch';
 import ReactPaginate from 'react-paginate';
-import UtilPb from '../../partial/UtilPb';
 class Blog extends React.Component {
 	constructor(props){
 		super(props);
@@ -15,7 +14,7 @@ class Blog extends React.Component {
 			totalPages:1,
 			currentPage:1,
 			blogList:[],
-			classify:this.props.params.classify || 'all' ,
+			classify:'all' ,
 			classifyList:[]
 		}
 		this.style = {
@@ -28,11 +27,13 @@ class Blog extends React.Component {
 			}
 		}
 	}
+	componentWillReceiveProps(nextProps) {  
+		if(nextProps.location.action == 'PUSH'){
+			this.getBlogList(1,nextProps.params.classify)
+		}
+	}
 	componentDidMount(){
 		this.getBlogList(1,this.state.classify);
-		UtilPb.subscribe('classifySearch',(v) => {
-			this.getBlogList(1,v);
-		})
 	}
 	getBlogList = (page,classify,cb) => {
 		fetch('/api/bloglist',{
@@ -53,7 +54,8 @@ class Blog extends React.Component {
 					loaded:true,
 					blogList:data.blogs,
 					totalPages:data.totalPages,
-					currentPage:page
+					currentPage:page,
+					classify:classify
 				});
 				if(typeof cb == 'function'){
 					cb()

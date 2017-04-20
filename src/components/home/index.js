@@ -39,7 +39,7 @@ class Entry extends React.Component {
 		return (
 			<div className="entry-wrap">
 				<EntryPaper>
-					<Link className="link" to="/blog">
+					<Link className="link" to="/visit/blog">
 						<div className="entry-paper-header">
 							技术分享
 						</div>
@@ -49,7 +49,7 @@ class Entry extends React.Component {
 					</Link>
 				</EntryPaper>
 				<EntryPaper>
-					<Link className="link" to="/daily">
+					<Link className="link" to="/visit/daily">
 						<div className="entry-paper-header">
 							我的日常
 						</div>

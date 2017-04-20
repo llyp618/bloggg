@@ -1,14 +1,12 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
-import {List,ListItem} from 'material-ui/List';
+// import {List,ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';	
 import Calendar from 'material-ui/DatePicker'
 import './rightMenu.less';
 import headerImg from '../../images/header.jpg';
 import 'whatwg-fetch';
-import UtilPb from '../UtilPb'
-
-
+import {Link} from 'react-router';
 
 class RightMenu extends React.Component{
 	constructor(props) {
@@ -28,15 +26,12 @@ class RightMenu extends React.Component{
 			})
 		})
 	}
-	handleClick = (v) => {
-		UtilPb.dispatch('classifySearch',v)
-	}
 	render(){
 		let classifyList = this.state.classifyList, ListItems = [];
 		classifyList.map( (v,i) => {
 			if(v == 'Daily') return;
 			ListItems.push(
-				<ListItem insetChildren={true} key={i} onClick={() => {this.handleClick(v)}} primaryText={v} />
+					<Link to={`/visit/blog/${v}`} key={i} className="fast-link" activeStyle={{background:'#f3f3f3'}}>{v}</Link>
 			)
 		})
 		return (
@@ -48,9 +43,8 @@ class RightMenu extends React.Component{
 					</div>
 					<Divider />
 					<div className="info-list">
-						<List>
-							{ListItems}
-						</List>
+						<Link to={`/visit/blog/all`} className="fast-link" activeStyle={{background:'#f3f3f3'}}>全部分类</Link>
+						{ListItems}
 					</div>
 				</Paper>
 				<Paper style={{marginTop:20}}>
