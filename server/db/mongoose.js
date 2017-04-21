@@ -29,7 +29,8 @@ module.exports = {
 		comment:{
 			create_time:String,
 			commenter:String,
-			content:String
+			content:String,
+			ip:String
 		}
 	}))
 }

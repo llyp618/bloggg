@@ -1,10 +1,11 @@
 var express = require('express')
 var blogModel = require('../models/blog.model')
+var config = require('config-lite')
 var classifyModel = require('../models/classify.model')
 var commentModel = require('../models/comment.model')
 var moment = require('moment')
 var router = express.Router()
-var SECRET = 'secret'
+var SECRET = config.token.secret
 // token 验证
 router.post('/space_auth',function(req,res,next){
 	res.set('Access-Control-Expose-Headers', 'access-token')
@@ -169,13 +170,49 @@ router.post('/get_comments',function(req,res,next){
 	}
 	commentModel.space_getlist(title,currentPage,function(err,docs){
     if(err){
-      throw err
+      console.error(err)
     }
-    res.json({
-      comments:docs
+    commentModel.space_getlistcount(title,function(err,count){
+    	res.json({
+	      comments:docs,
+	      totalPages:Math.ceil(count / 20)
+	    })
     })
+    
   })
 })
+// 删除评论
+router.post('/delete_comment',function(req,res,next){
+	var _id = req.body._id
+	commentModel.delete(_id,function(err){
+		if(err){
+			console.error(err)
+			res.json({
+				status:'failed'
+			})
+		}else {
+			res.json({
+				status:'succeed'
+			})
+		}
+	})
+})
 
+//获取所有文章标题
+router.get('/get_titles',function(req,res,next){
+	commentModel.get_titles(function(err,docs){
+		if(err) console.error(err)
+		var titles = [],titleJson = {}
+		docs.map(function(v,i){
+			if(!titleJson[v.title]){
+				titles.push(v.title)
+				titleJson[v.title] = 1
+			}
+		})
+		res.json({
+			titleSources:titles
+		})
+	})
+})
 
 module.exports = router

@@ -28,8 +28,8 @@ class Blog extends React.Component {
 		}
 	}
 	componentWillReceiveProps(nextProps) {  
-		if(nextProps.location.action == 'PUSH'){
-			this.getBlogList(1,nextProps.params.classify)
+		if(nextProps.location.action == 'POP'){
+			this.getBlogList(1,nextProps.params.classify || 'all')
 		}
 	}
 	componentDidMount(){

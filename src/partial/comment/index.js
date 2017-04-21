@@ -74,7 +74,7 @@ class Comment extends React.Component {
 		})
 		if(comments.length == 0){
 			comments.push(
-				<li>
+				<li key={-1}>
   				<p className="commentText">暂无评论。。。</p>
   			</li>
 			)

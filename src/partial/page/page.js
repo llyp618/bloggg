@@ -23,7 +23,12 @@ class Page extends React.Component {
 	handleClose = () => this.setState({open: false})
 
 	itemTouchtapHandler = (event,item,index) => {
-		window.location.hash = item.props.value;
+		let nextHash = item.props.value
+		//bug
+		if(nextHash == '#/visit/blog') {
+			nextHash = '#/visit/blog/all'
+		}
+		window.location.hash = nextHash;
 	}
 	componentWillMount() {
 		window.scrollTo(0,0)

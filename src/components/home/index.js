@@ -39,9 +39,9 @@ class Entry extends React.Component {
 		return (
 			<div className="entry-wrap">
 				<EntryPaper>
-					<Link className="link" to="/visit/blog">
+					<Link className="link" to="/visit/blog/all">
 						<div className="entry-paper-header">
-							技术分享
+							技术积累
 						</div>
 						<div className="entry-paper-body">
 							<img src={blogImg} width="90%" alt=""/>
