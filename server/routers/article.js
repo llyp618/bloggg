@@ -38,6 +38,8 @@ marked.setOptions({
 //暂未区分daily
 router.post('/',function(req,res,next){
 	var _id = req.body.id
+  // 增加pv
+  blogModel.updatePv(_id)
 	blogModel.getOne(_id,function(doc){
 		doc.content = marked(doc.content)
 		res.json({

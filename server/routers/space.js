@@ -79,6 +79,8 @@ router.post('/blog_create_modify',function(req,res,next){
 		})
 		return false;
 	}
+	// 增加个pv数
+	blog.pv = 0;
 	blogModel.create(blog,function(status){
 		if(status == 'failed') {
 			res.json({

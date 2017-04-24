@@ -8,11 +8,12 @@ module.exports = {
 			classify:blog.classify,
 			create_time:blog.create_time,
 			content:blog.content,
-			info:blog.info
+			info:blog.info,
+			pv:blog.pv
 		})
 		blog.save(function(err){  //保存文档
 			if(err){
-				console.log(err)
+				console.error(err)
 				return cb('failed')
 			}else {
 				return cb('success')
@@ -24,14 +25,14 @@ module.exports = {
 		//每页10篇
 	 	Blog.find(filter,project,{sort:{'_id':-1},skip:10 * (currentPage - 1),limit:10},function(err,docs){
 	 		if(err){
-	 			console.log(err)
+	 			console.error(err)
 	 			return false;
 	 		}
 	 		var result = docs;
 	 		//查找总页数
 	 		Blog.find(filter,function(err,docs){   
 	 			if(err){
-		 			console.log(err)
+		 			console.error(err)
 		 			return false
 		 		}
 		 		var totalPages = Math.ceil(docs.length / 10) //总页数返回
@@ -43,24 +44,40 @@ module.exports = {
 	getOne:function(_id,cb){
 		Blog.findById(_id,function(err,doc){
 			if(err){
-				console.log(err)
+				console.error(err)
 				return false
 			}
 			return cb(doc)
+		})
+	},
+	updatePv:function(_id){
+		Blog.findById(_id,function(err,doc){
+			if(err){
+				console.error(err)
+				return false
+			}
+			if(!doc.pv) doc.pv = 0;
+			doc.pv = doc.pv + 1
+			doc.save(function(err){
+				if(err){
+					console.error(err)
+					return false
+				}
+			})
 		})
 	},
 	//删除某一篇文章
 	removeOne:function(_id,cb){
 		Blog.findById(_id,function(err,doc){
 			if(err){
-				console.log(err)
-				return false;
+				console.error(err)
+				return false
 			}
 			if(doc){
 				var clfy = doc.classify
 				doc.remove(function(){
 					if(err){
-						console.log(err)
+						console.error(err)
 						return cb('failed',clfy)
 					}else {
 						return cb('success',clfy)
@@ -73,7 +90,7 @@ module.exports = {
 	modifyOne:function(blog,_id,cb){
 		Blog.findByIdAndUpdate(_id,blog,function(err){
 			if(err){
-				console.log(err)
+				console.error(err)
 				return cb('failed')
 			}else {
 				return cb('success')

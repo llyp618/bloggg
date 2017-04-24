@@ -19,7 +19,8 @@ module.exports = {
 		classify:String,
 		create_time:String,
 		content:String,
-		info:String
+		info:String,
+		pv:Number
 	})),
 	Classify:mongoose.model('Classify',new mongoose.Schema({
 		classify:String

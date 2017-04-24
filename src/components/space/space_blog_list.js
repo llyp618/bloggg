@@ -134,6 +134,7 @@ class SpaceBlogList extends React.Component{
 	        <TableRowColumn>{data.classify}</TableRowColumn>
 	        <TableRowColumn>{data.title}</TableRowColumn>
 	        <TableRowColumn>{data.create_time}</TableRowColumn>
+	        <TableRowColumn>{data.pv}</TableRowColumn>
 	        <TableRowColumn>
 	        	<Link to={`/space/space_article_edit/${data._id}`}>
 	        		<RaisedButton label="修 改" primary={true} />
@@ -169,6 +170,7 @@ class SpaceBlogList extends React.Component{
 			        </TableHeaderColumn>
 			        <TableHeaderColumn>标题</TableHeaderColumn>
 			        <TableHeaderColumn>日期</TableHeaderColumn>
+			        <TableHeaderColumn>pv</TableHeaderColumn>
 			        <TableHeaderColumn>操作</TableHeaderColumn>
 			      </TableRow>
 			    </TableHeader>
