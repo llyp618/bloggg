@@ -5,15 +5,20 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import './space.less';
 import 'whatwg-fetch';
+import Captcha from '../../partial/captcha';
 // 登录
 class LoginBox extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			accountError:'',
-			passwordError:'',
+			submitDisabled:true,
 			resError:true,
 			resMsg:''
+		}
+		this.submit = {
+			account:false,
+			password:false,
+			captcha:false,
 		}
 	}
 	verify(account,password){
@@ -34,7 +39,6 @@ class LoginBox extends React.Component{
 	doLogin(){
 		let sAccount = this.refs.account.getValue().replace(/\s/,'');
 		let sPassword = this.refs.password.getValue().replace(/\s/,'');
-		if(!this.verify(sAccount,sPassword)) return false;
 		fetch('/api/space/space_login',{
 			method:'POST',
 			headers:{
@@ -47,7 +51,6 @@ class LoginBox extends React.Component{
 		}).then((res) => {
 			if(res.status == 200){
 				const token = res.headers.get('access-token');
-				console.log(token)
 				sessionStorage.setItem('access_token',token);
 			}
 			return res.json()
@@ -64,6 +67,40 @@ class LoginBox extends React.Component{
 			}
 		})
 	}
+	setAccount = (e) => {
+		let sAccount = e.target.value.replace(/\s/,'');
+		if( sAccount == ''){
+			this.submit.account = false;
+		}else {
+			this.submit.account = true;
+		}
+		this.setSubmitDisabled();
+	}
+	setPassword = (e) => {
+		let sPassword = e.target.value.replace(/\s/,'');
+		if( sPassword == ''){
+			this.submit.password = false;
+		}else {
+			this.submit.password = true;
+		}
+		this.setSubmitDisabled();
+	}
+	setCaptcha = (isValid) => {
+		this.submit.captcha = isValid;
+		this.setSubmitDisabled();
+	}
+	setSubmitDisabled = () => {
+		console.log(1)
+		if(this.submit.account && this.submit.password && this.submit.captcha){
+			this.setState({
+				submitDisabled:false
+			})
+		}else {
+			this.setState({
+				submitDisabled:true
+			})
+		}
+	}
 	render(){
 		return (
 			<div className="login-box">
@@ -72,16 +109,18 @@ class LoginBox extends React.Component{
 		      floatingLabelText="输入账号" fullWidth={true}
 		      name="account"
 		      ref="account"
-		      errorText={this.state.accountError}
+		      onChange={this.setAccount}
 		    /> <br/>
 				<TextField
 		      hintText="密码"
 		      floatingLabelText="输入密码" fullWidth={true} type="password"
 		      name="password"
 		      ref="password"
-		      errorText={this.state.passwordError}
-		    /> <br/><br/><br/>
-		    <RaisedButton label="确 认 登 录" onClick={() => this.doLogin()} primary={true} fullWidth={true} />
+		      onChange={this.setPassword}
+		    />
+		    <Captcha captchaRe={(isValid) => {this.setCaptcha(isValid)}}/>
+		     <br/><br/>
+		    <RaisedButton label="确 认 登 录" onClick={() => this.doLogin()} disabled={this.state.submitDisabled} primary={true} fullWidth={true} />
 				<p className={`error-text ${this.state.resError? 'active' : ''}`}>
 					{this.state.resMsg}
 				</p>

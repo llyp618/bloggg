@@ -162,7 +162,7 @@ class SpaceCommentList extends React.Component{
 					      dataSource={titleSources}
 					      ref="titleSources"
 					      searchText={this.state.title}
-					      textFieldStyle={{width:'120',color:'rgb(158, 158, 158)',fontSize:12}}
+					      textFieldStyle={{width:120,color:'rgb(158, 158, 158)',fontSize:12}}
 					      id="titleSources"
 					      onNewRequest={this.updateList}
 					    />

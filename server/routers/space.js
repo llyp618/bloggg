@@ -5,34 +5,43 @@ var classifyModel = require('../models/classify.model')
 var commentModel = require('../models/comment.model')
 var moment = require('moment')
 var router = express.Router()
-var SECRET = config.token.secret
+var sha1 = require('sha1')
+var jwt = require('jsonwebtoken')
 // token 验证
 router.post('/space_auth',function(req,res,next){
 	res.set('Access-Control-Expose-Headers', 'access-token')
 	var unAuth = true
 	var token = req.headers['access-token']
-	if(token == SECRET) {
-		unAuth = false
+	// if(token == SECRET) {
+	// 	unAuth = false
 
-	}
-	if(unAuth){
-		res.sendStatus(401)
-	} else {
-		res.sendStatus(200)
-	}
+	// }
+	jwt.verify(token,config.token.secret,function(err,decoded){
+		if(err){
+			res.sendStatus(401)
+		}else {
+			res.sendStatus(200)
+		}
+	})
+	// if(unAuth){
+	// 	res.sendStatus(401)
+	// } else {
+	// 	res.sendStatus(200)
+	// }
 })
 //登录
 router.post('/space_login',function(req,res,next){
 	res.set('Access-Control-Expose-Headers','access-token')
 	var account = req.body.account
 	var password = req.body.password
-	if(account != '1' || password != '1') {
+	if(sha1(account) != config.account || sha1(password) != config.password) {
 		res.json({
 			status:0,
 			msg:'账号或密码错误!'
 		})
 	}else {
-		res.set('access-token',SECRET)
+		var token = jwt.sign({key:config.token.key},config.token.secret,{expiresIn:config.token.expireTime})
+		res.set('access-token',token)
 		res.json({
 			status:1,
 			msg:'登录成功!'

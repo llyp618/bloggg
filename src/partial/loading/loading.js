@@ -27,11 +27,11 @@ class Loading extends React.Component {
 	render(){
 		return (
 				<div style={this.style.div}>
-					<CircularProgress style={this.style.circular} size={80} thickness={8}/>	
+					<CircularProgress style={this.style.circular} size={80} thickness={8}/>
 					<p style={this.style.p}>{this.props.words}</p>
 				</div>
 		)
-		
+
 	}
 }
 
