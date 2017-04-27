@@ -8,5 +8,5 @@ module.exports = {
 	},
 	account:'6c9d1c4a0818016fe7c12063622624915aea270d',
 	password:'601f1889667efaebb33b8c12572835da3f027f78',
-	mongodb:'mongodb://localhost:27017/llll'
+	mongodb:'mongodb://llyp618:123123@localhost:27017/llll'
 }
