@@ -1,8 +1,0 @@
-[
-	{
-		"title" : "Javascript闭包",
-		"subtitle" : "2017.3.14",
-		"text" : "闭包(closure)是javascript一个难点，也是它的特点，javascript高阶函数都离不开闭包。(本文 copy 阮一峰老师)",
-		"id" : "1"
-	}
-]
