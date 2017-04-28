@@ -57,8 +57,6 @@ class LoginBox extends React.Component{
 		})
 		.then((data) => {
 			if(data.status == 0){
-				this.refs.captcha.createExpression();
-				this.refs.captcha.checkInput();
 				this.setState({
 					resError:true,
 					resMsg:data.msg
