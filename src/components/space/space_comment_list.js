@@ -126,7 +126,7 @@ class SpaceCommentList extends React.Component{
 					</div>
 			)
 		}
-		let commentTr = [];
+		let commentTr = [] 
 		this.state.commentList.map((v,i) => {
 			let content = v.comment.content.substring(0,50)+'...'
 			commentTr.push(
