@@ -136,7 +136,7 @@ class SpaceCommentList extends React.Component{
 	        <TableRowColumn width="15%">{v.comment.commenter}</TableRowColumn>
 	        <TableRowColumn width="15%">{v.comment.create_time}</TableRowColumn>
 	        <TableRowColumn width="30%">{content}</TableRowColumn>
-	        <TableRowColumn>
+	        <TableRowColumn width="10%">
 	        	<RaisedButton label="删 除" onClick={() => {this.handleDelete(v._id)}}/>
 	        </TableRowColumn>
 	      </TableRow>
@@ -170,7 +170,7 @@ class SpaceCommentList extends React.Component{
 			        <TableHeaderColumn width="15%">留言者</TableHeaderColumn>
 			        <TableHeaderColumn width="15%">日期</TableHeaderColumn>
 			        <TableHeaderColumn width="30%">留言</TableHeaderColumn>
-			        <TableHeaderColumn>操作</TableHeaderColumn>
+			        <TableHeaderColumn width="10%">操作</TableHeaderColumn>
 			      </TableRow>
 			    </TableHeader>
 			    <TableBody displayRowCheckbox={false}>

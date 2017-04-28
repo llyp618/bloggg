@@ -54,6 +54,11 @@ module.exports = {
 				     NODE_ENV: JSON.stringify("development") 
 				   }
         }),
+		new webpack.optimize.UglifyJsPlugin({
+		    compress: {
+		        warnings: false
+		    }
+		}),
 		new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
 		new HtmlWebpackPlugin({
 			template:path.join(__dirname,'dist/index.html')    //html-webpack-plugin 插件取相应的模板去插入，
