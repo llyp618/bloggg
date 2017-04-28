@@ -57,6 +57,8 @@ class LoginBox extends React.Component{
 		})
 		.then((data) => {
 			if(data.status == 0){
+				this.refs.captcha.createExpression();
+				this.refs.captcha.checkInput();
 				this.setState({
 					resError:true,
 					resMsg:data.msg
@@ -118,7 +120,7 @@ class LoginBox extends React.Component{
 		      ref="password"
 		      onChange={this.setPassword}
 		    />
-		    <Captcha captchaRe={(isValid) => {this.setCaptcha(isValid)}}/>
+		    <Captcha captchaRe={(isValid) => {this.setCaptcha(isValid)}} ref="captcha"/>
 		     <br/><br/>
 		    <RaisedButton label="确 认 登 录" onClick={() => this.doLogin()} disabled={this.state.submitDisabled} primary={true} fullWidth={true} />
 				<p className={`error-text ${this.state.resError? 'active' : ''}`}>
