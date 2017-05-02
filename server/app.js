@@ -1,10 +1,11 @@
 var express = require('express');
+var compress = require('compression');
 var path = require('path');	
 var routers = require('./routers');
 var bodyParser = require('body-parser');   //处理请求 json数据的中间件
 var config = require('config-lite');
 var app = express();
-
+app.use(compress());
 app.use(express.static(path.resolve(__dirname, '../dist')));  //修改静态资源路径
 app.use(bodyParser());
 app.get('/',function(req,res){

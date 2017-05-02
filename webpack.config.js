@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');  //用来生成html
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
 	entry:{
 		js:'./src/app.js',
@@ -34,12 +35,12 @@ module.exports = {
 			{
 				test:/\.css$/,
 				exclude:/node_modules/,
-				loader:'style-loader!css-loader'
+				loader:ExtractTextPlugin.extract('style-loader','css-loader')
 			},
 			{
 				test:/\.less$/,
 				exclude:/node_modules/,
-				loader:'style-loader!css-loader!postcss!less-loader'   //webpack使用其他工具时一定要同时装*-loader，否则出现奇怪的错误
+				loader:ExtractTextPlugin.extract('style-loader','css-loader!less-loader')   //webpack使用其他工具时一定要同时装*-loader，否则出现奇怪的错误
 			},
 			{
 				test:/\.(png|jpg|svg|gif)$/,
@@ -54,6 +55,9 @@ module.exports = {
 				     NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development") 
 				   }
         }),
+		new webpack.optimize.OccurrenceOrderPlugin(), //排序
+		new webpack.optimize.DedupePlugin(), //模块去重
+		new ExtractTextPlugin("styles.css"), //css单独打包
 		new webpack.optimize.UglifyJsPlugin({
 		    compress: {
 		        warnings: false
