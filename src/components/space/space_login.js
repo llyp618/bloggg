@@ -61,6 +61,10 @@ class LoginBox extends React.Component{
 					resError:true,
 					resMsg:data.msg
 				})
+				this.refs.captcha.updateCap(()=>{
+					this.submit.captcha = false;
+					this.setSubmitDisabled();
+				})
 			}else if (data.status == 1){
 				hashHistory.push('/space');
 
@@ -90,7 +94,6 @@ class LoginBox extends React.Component{
 		this.setSubmitDisabled();
 	}
 	setSubmitDisabled = () => {
-		console.log(1)
 		if(this.submit.account && this.submit.password && this.submit.captcha){
 			this.setState({
 				submitDisabled:false

@@ -26,6 +26,10 @@ class Captcha extends React.Component{
 		var isValid = parseInt(res) == this.state.result;
 		this.props.captchaRe(isValid)
 	}
+	updateCap = (cb) => {
+		this.createExpression()
+		cb();
+	}
 	render() {
 
 		return (

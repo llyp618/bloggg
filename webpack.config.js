@@ -5,7 +5,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');  //用来生成html
 module.exports = {
 	entry:{
 		js:'./src/app.js',
-		vendor:['react','react-router','react-dom','whatwg-fetch']
+		vendor:['react','react-router','react-dom','whatwg-fetch','material-ui']
 	},
 	output:{
 		path:'./dist',
@@ -51,7 +51,7 @@ module.exports = {
 	plugins:[
 		new webpack.DefinePlugin({
            "process.env": { 
-				     NODE_ENV: JSON.stringify("development") 
+				     NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development") 
 				   }
         }),
 		new webpack.optimize.UglifyJsPlugin({
