@@ -4,7 +4,8 @@ module.exports = {
 	entry:'./server/app.js',
 	output:{
 		path:'./dist',
-		filename:'server.js'
+		filename:'server.js',
+		libraryTarget:'commonjs'
 	},
 	target:'node',
 	node:{
@@ -39,7 +40,8 @@ module.exports = {
         ]
 			}, {
         test: /\.(jpg|png|gif|webp|svg)$/,
-        loader: 'url?limit=8000'
+				exclude:/node_modules/,
+        loader: 'url?limit=80000'
 			},
 			{
         test: /\.json$/,
@@ -49,13 +51,19 @@ module.exports = {
 
 		]
 	},
+	externals:[{
+		'mongoose':'mongoose',
+		'express':'express',
+		'config-lite':'config-lite'
+	}
+	],
 	plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {warnings: false},
-            comments: false
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {warnings: false},
+        //     comments: false
+        // }),
         new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)})
 	]
 }

@@ -6,7 +6,6 @@ import Menu from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RightMenu from '../rightMenu';
 import './page.less';
 class Page extends React.Component {
@@ -58,7 +57,6 @@ class Page extends React.Component {
 			break;
 		}
 		return (
-			<MuiThemeProvider>
 				<div className="main-page">
 					<AppBar title="LuLu's Blog" onLeftIconButtonTouchTap={this.drawerToggle} style={{position:"fixed",top:0}}/>
 					<Drawer open={this.props.isLeftMenu ? true : this.state.open  }  onRequestChange={(open) => this.setState({open})} width={224}>
@@ -77,7 +75,6 @@ class Page extends React.Component {
 					<div className="footer" >
 					</div>
 				</div>
-			</MuiThemeProvider>
 		)
 	}
 }

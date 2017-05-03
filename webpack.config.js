@@ -10,7 +10,8 @@ module.exports = {
 	},
 	output:{
 		path:'./dist',
-		filename:'bundle.js'
+		filename:'bundle.js',
+		chunkFilename:'[name].[chunkhash:5].chunk.js'
 	},
 	devServer:{                //webpack-dev-server 需要安装
 		contentBase:'./dist',
@@ -58,11 +59,11 @@ module.exports = {
 		new webpack.optimize.OccurrenceOrderPlugin(), //排序
 		new webpack.optimize.DedupePlugin(), //模块去重
 		new ExtractTextPlugin("styles.css"), //css单独打包
-		new webpack.optimize.UglifyJsPlugin({
-		    compress: {
-		        warnings: false
-		    }
-		}),
+		// new webpack.optimize.UglifyJsPlugin({
+		//     compress: {
+		//         warnings: false
+		//     }
+		// }),
 		new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
 		new HtmlWebpackPlugin({
 			template:path.join(__dirname,'dist/index.html')    //html-webpack-plugin 插件取相应的模板去插入，
