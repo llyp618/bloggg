@@ -84,7 +84,7 @@ class Blog extends React.Component {
 			      {data.info}
 			    </CardText>
 			    <CardActions style={{textAlign:'right'}}>
-			      <Link className="link" to={`/visit/blog/article/${data._id}`}><FlatButton primary={true}>查看更多</FlatButton></Link>
+			      <Link className="link" to={`/visit/blog/article/${data._id}`}><FlatButton primary={true}>查看全文<span className="iconfont icon-tiaozhuan"></span></FlatButton></Link>
 			    </CardActions>
 			  </Card>
 			)

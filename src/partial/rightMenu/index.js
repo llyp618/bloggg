@@ -31,7 +31,7 @@ class RightMenu extends React.Component{
 		classifyList.map( (v,i) => {
 			if(v == 'Daily') return;
 			ListItems.push(
-					<Link to={`/visit/blog/${v}`} key={i} className="fast-link" activeStyle={{background:'#f3f3f3'}}>{v}</Link>
+					<Link to={`/visit/blog/${encodeURI(v)}`} key={i} className="fast-link" activeStyle={{background:'#f3f3f3'}}>{v}</Link>
 			)
 		})
 		return (

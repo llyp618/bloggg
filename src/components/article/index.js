@@ -67,7 +67,7 @@ class Article extends React.Component {
 					   	<CardText  style={this.style.cardText} dangerouslySetInnerHTML={{__html:this.state.blog.content}}>
 					    </CardText>
 					  <CardActions style={{textAlign:'right'}}>
-						      <Link className="link" to={`/visit/${this.props.params.type}`}><FlatButton label="返回列表" secondary={true}></FlatButton></Link>
+						      <Link className="link" to={`/visit/${this.props.params.type}`}><FlatButton secondary={true}><span className="iconfont icon-fanhui"></span>返回列表</FlatButton></Link>
 						</CardActions>
 				  </Card>
 				  <Comment commentTitle={this.state.blog.title}/>

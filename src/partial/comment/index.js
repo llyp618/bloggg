@@ -81,7 +81,7 @@ class Comment extends React.Component {
 		}
 		return (
 			<Card className="articleComments">
-	  		<CardHeader title="评论留言" titleStyle={{fontSize:20,fontWeight:800}}></CardHeader>
+	  		<CardHeader title={<span>评论留言<span className="iconfont icon-31pinglun"></span></span>} titleStyle={{fontSize:20,fontWeight:800}}></CardHeader>
 	  		<ul>
 	  			{comments}
 	  		</ul>

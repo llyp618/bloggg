@@ -58,17 +58,17 @@ class Page extends React.Component {
 		}
 		return (
 				<div className="main-page">
-					<AppBar title="LuLu's Blog" onLeftIconButtonTouchTap={this.drawerToggle} style={{position:"fixed",top:0}}/>
+					<AppBar title="LuLu's Blog" onLeftIconButtonTouchTap={this.drawerToggle} style={{position:"fixed",top:0}} />
 					<Drawer open={this.props.isLeftMenu ? true : this.state.open  }  onRequestChange={(open) => this.setState({open})} width={224}>
 						<AppBar 
 							title={<Link to="/" className="link" style={{color:"#fff"}}>Home</Link>}
 					    iconElementLeft={<IconButton><FontIcon className="iconfont icon-home2" /></IconButton>}
 					    onTitleTouchTap={this.handleClose}
 				     />
-				     	<Menu width={200} onItemTouchTap={this.itemTouchtapHandler} value={sHashRoot}>
-							<MenuItem value="#/visit/blog" primaryText="Blog" />
-							<MenuItem value="#/visit/daily" primaryText="Daily" />
-							<MenuItem value="#/space" primaryText="Space" />
+				     	<Menu className="left-menu" width={200} onItemTouchTap={this.itemTouchtapHandler} value={sHashRoot}>
+							<MenuItem value="#/visit/blog"  primaryText={<span><span className="iconfont icon-bokefenlei"></span>Blog</span>} />
+							<MenuItem value="#/visit/daily" primaryText={<span><span className="iconfont icon-xiangji1"></span>Daily</span>} />
+							<MenuItem value="#/space" primaryText={<span><span className="iconfont icon-pussy"></span>Space</span>} />
 							</Menu>
 					</Drawer>
 					{Childs}
