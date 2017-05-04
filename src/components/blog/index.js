@@ -89,12 +89,20 @@ class Blog extends React.Component {
 			  </Card>
 			)
 		})
-
+		if(CardList.length == 0){
+			CardList.push(
+				<Card className="article-card" key={-1}>
+					<CardText>
+			      无结果。
+			    </CardText>
+				</Card>
+			)
+		}
 		return (
 				<div>
 					{CardList}
 				  <ReactPaginate 
-				  pageCount={this.state.totalPages} 
+				  pageCount={this.state.totalPages || 1} 
 				  pageRangeDisplayed={5} 
 				  marginPagesDisplayed={2}
 				  previousLabel="上一页"

@@ -83,7 +83,7 @@ class Page extends React.Component {
 							<a href="http://webpack.github.io/" target="_blank">Webpack</a>
 						</p>
 						<p>
-							Email:&nbsp;&nbsp;&nbsp;lllyp618@163.com &nbsp;&nbsp;(～ o ～)~zZ 
+							Email :&nbsp;&nbsp;&nbsp;lllyp618@163.com &nbsp;&nbsp;(～ o ～)~zZ 
 						</p>
 						<p>
 							<a href="https://www.aliyun.com/" target="_blank">阿里云托管</a>
