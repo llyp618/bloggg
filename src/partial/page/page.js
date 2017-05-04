@@ -72,7 +72,22 @@ class Page extends React.Component {
 							</Menu>
 					</Drawer>
 					{Childs}
-					<div className="footer" >
+					<div className={this.props.isHome?'footer home-footer':'footer'} >
+						<p>
+						  Powered by : &nbsp;&nbsp;&nbsp;
+							<a href="https://nodejs.org/en/" target="_blank">Node.js</a>&nbsp;-&nbsp;
+							<a href="https://www.mongodb.com" target="_blank">MongoDB</a>&nbsp;-&nbsp;
+							<a href="http://www.expressjs.com.cn/" target="_blank">Express</a>&nbsp;-&nbsp;
+							<a href="https://facebook.github.io/react/" target="_blank">React</a>&nbsp;-&nbsp;  
+							<a href="http://www.material-ui.com/" target="_blank">Material UI</a>&nbsp;-&nbsp; 
+							<a href="http://webpack.github.io/" target="_blank">Webpack</a>
+						</p>
+						<p>
+							Email:&nbsp;&nbsp;&nbsp;lllyp618@163.com &nbsp;&nbsp;(～ o ～)~zZ 
+						</p>
+						<p>
+							<a href="https://www.aliyun.com/" target="_blank">阿里云托管</a>
+						</p>
 					</div>
 				</div>
 		)

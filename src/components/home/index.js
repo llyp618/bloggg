@@ -76,7 +76,7 @@ class Home extends React.Component {
 
 	render(){
 		return (
-				<Page isLeftMenu={false} isRightMenu={false}>
+				<Page isLeftMenu={false} isRightMenu={false} isHome={true}>
 					<h1 className="website-title">LuLu的博客</h1>
 					<Entry />
 				</Page>

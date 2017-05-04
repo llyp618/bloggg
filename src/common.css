@@ -19,18 +19,8 @@ body {
 	min-height:100%;
 }
 .main-content {
-	padding-bottom: 340px;
+	padding-bottom: 200px;
 }
-.footer {
-	height: 300px;
-	background-color: #222222;
-	position: absolute;
-	bottom: 0;
-	left: 0 ;
-	width: 100%;
-		
-}
-
 .pagination {
 	padding: 0;
 	margin: 0;
