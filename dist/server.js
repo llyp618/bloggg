@@ -27399,8 +27399,10 @@
 	router.post('/blog_create_modify', function (req, res, next) {
 		var title = req.body.title,
 		    classify = req.body.classify,
-		    content = req.body.content;
-		_id = req.body._id, info = req.body.info, create_time = moment().format('YYYY-MM-DD HH:mm:ss');
+		    content = req.body.content,
+		    _id = req.body._id,
+		    info = req.body.info,
+		    create_time = moment().format('YYYY-MM-DD HH:mm:ss');
 		var blog = {
 			title: title,
 			classify: classify,
