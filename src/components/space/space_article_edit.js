@@ -33,7 +33,7 @@ class Editor extends React.Component{
 		super(props);
 		this.state={
 			md:this.props.value || '',
-			preview:'',
+			preview:marked(this.props.value || ''),
 		}
 	}
 	// static propTypes = {
@@ -201,6 +201,7 @@ class SpaceArticleEdit extends React.Component{
 				      ref="classify"
 				      searchText={this.state.blog_info.classify}
 				      inputStyle={this.style.textfield}
+				      openOnFocus={true}
 				    />
 						<RaisedButton label="发 布" secondary={true} className="post-btn" onClick={this.handleSubmit} />
 					</div>
