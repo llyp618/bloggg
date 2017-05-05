@@ -14,7 +14,7 @@ class Blog extends React.Component {
 			totalPages:1,
 			currentPage:1,
 			blogList:[],
-			classify:'all' ,
+			classify:this.props.params.classify || 'all' ,
 			classifyList:[]
 		}
 		this.style = {

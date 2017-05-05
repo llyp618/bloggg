@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import {Card, CardHeader} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import './comment.less';
 import 'whatwg-fetch';
 class Comment extends React.Component {
@@ -9,7 +10,10 @@ class Comment extends React.Component {
 		super(props);
 		this.state = {
 			commentList : [],
-
+			commenterV:'',
+			contentV:'',
+			commenterError:'',
+			contentError:''
 		}
 	}
 	componentDidMount() {
@@ -31,8 +35,8 @@ class Comment extends React.Component {
 		})
 	}
 	handleCommentPost = () => {
-		let commenter = this.refs.commenter.getValue(),
-				content = this.refs.content.getValue(),
+		let commenter = this.state.commenterV,
+				content = this.state.contentV,
 				title = this.props.commentTitle
 		fetch('/api/article/createComment',{
 			method:'POST',
@@ -48,22 +52,52 @@ class Comment extends React.Component {
 			return res.json()
 		}).then((data) => {
 			if(data.status == 'failed'){
-
+				alert('留言失败')
 			}else if (data.status == 'succeed'){
 				let theCommentList = this.state.commentList;
 				theCommentList.push(data.comment)
 				this.setState({
-					commentList:theCommentList
+					commentList:theCommentList,
+					commenterV:'',
+					contentV:'',
 				})
 			}
 		})
+	}
+	commenterChange = (e) => {
+		let v = e.target.value;
+		if (v.replace(/\s/g,'') == '') {
+			this.setState({
+				commenterV:v,
+				commenterError:'请输入您的大名'
+			})
+		}else {
+			this.setState({
+				commenterV:v,
+				commenterError:''
+			})
+		}
+	}
+	contentChange = (e) => {
+		let v = e.target.value;
+		if (v.replace(/\s/g,'') == '') {
+			this.setState({
+				contentV:v,
+				contentError:'请输入您的留言'
+			})
+		}else {
+			this.setState({
+				contentV:v,
+				contentError:''
+			})
+		}
 	}
 	render(){
 		let comments = [];
 		let commentList = this.state.commentList;
 		commentList.map((v,i) => {
 			comments.push(
-				<li key={i}>
+				<li key={i} className="commentLi">
   				<p>
   					<span className="commentName"><strong>{i+1}楼 &nbsp;</strong> {v.commenter} :</span>
   					<em className="commentTime">{v.create_time}</em>
@@ -83,7 +117,12 @@ class Comment extends React.Component {
 			<Card className="articleComments">
 	  		<CardHeader title={<span>评论留言<span className="iconfont icon-31pinglun"></span></span>} titleStyle={{fontSize:20,fontWeight:800}}></CardHeader>
 	  		<ul>
-	  			{comments}
+	  			<CSSTransitionGroup
+	          transitionName="ali"
+	          transitionEnterTimeout={500}
+	          transitionLeaveTimeout={300}>
+	  				{comments}
+	        </CSSTransitionGroup>
 	  		</ul>
 	  		<hr className="commentHr"/>
 	  		<div className="commentField">
@@ -91,7 +130,9 @@ class Comment extends React.Component {
 				      hintText="你的大名"
 				      floatingLabelText="你的大名"
 				      ref="commenter"
-				      inputStyle={{}}
+				      value={this.state.commenterV}
+				      errorText={this.state.commenterError}
+				      onChange={this.commenterChange}
 				    />
 	  			<TextField
 				      hintText="留言"
@@ -100,12 +141,15 @@ class Comment extends React.Component {
 				      rowsMax={4}
 				      fullWidth={true}
 				      ref="content"
-				      textareaStyle={{}}
+				      value={this.state.contentV}
+				      errorText={this.state.contentError}
+				      onChange={this.contentChange}
 				    />
 			    <RaisedButton
 		        label="发布"
 		        primary={true}
 		        className="postBtn"
+		        disabled={!(!!this.state.contentV && !!this.state.commenterV)}
 		        onClick={this.handleCommentPost}
 		      />
 	  		</div>
