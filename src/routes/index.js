@@ -12,6 +12,7 @@ import Visit from '../components/visit';
 import SpaceLogin from '../components/space/space_login';
 import SpaceBlogList from '../components/space/space_blog_list';
 import SpaceCommentList from '../components/space/space_comment_list';
+import SpaceClassifyList from '../components/space/space_classify_list.js';
 import SpaceArticleEdit from '../components/space/space_article_edit';
 class App extends React.Component {  //组件名首字母一定要大写
 	render(){
@@ -37,10 +38,9 @@ const routes=
 				</Route>
 				<Route path="/space" component={Space}>
 					<IndexRoute component={SpaceBlogList} />
-					<Route path="/space/space_blog_list" component={SpaceBlogList}>
-					</Route>
-					<Route path="/space/space_comment_list" component={SpaceCommentList}>
-					</Route>
+					<Route path="/space/space_blog_list" component={SpaceBlogList} />
+					<Route path="/space/space_comment_list" component={SpaceCommentList} />
+					<Route path="/space/space_classify_list" component={SpaceClassifyList} />
 				</Route>
 				<Route path="/space/space_article_edit(/:blog_id)" component={SpaceArticleEdit}>
 				</Route>

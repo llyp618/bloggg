@@ -27122,7 +27122,7 @@
 		add: function add(clfy) {
 			Classify.find({ classify: clfy }, function (err, docs) {
 				if (err) {
-					console.log('err:', err);
+					console.error(err);
 					return false;
 				}
 				if (docs.length === 0) {
@@ -27131,7 +27131,7 @@
 					});
 					classify.save(function (err) {
 						if (err) {
-							console.log(err);
+							console.error(err);
 						}
 					});
 				}
@@ -27141,13 +27141,13 @@
 		delete: function _delete(clfy) {
 			Blog.find({ classify: clfy }, function (err, docs) {
 				if (err) {
-					console.log('err:', err);
+					console.error(err);
 					return false;
 				}
 				if (docs.length === 0) {
 					Classify.findOne({ classify: clfy }, function (err, doc) {
 						if (err) {
-							console.error('err:', err);
+							console.error(err);
 							return false;
 						}
 						if (doc) {
@@ -27161,11 +27161,25 @@
 		getList: function getList(cb) {
 			Classify.find({}, ['-_id', '-__v'], function (err, docs) {
 				if (err) {
-					console.log('err:', err);
+					console.error(err);
 					cb('failed', docs);
 					return false;
 				}
 				cb('success', docs);
+			});
+		},
+		modify: function modify(ary, cb) {
+			Classify.find({}, function (err, docs) {
+				ary.map(function (v, i) {
+					docs[i].classify = v;
+					docs[i].save(function (err) {
+						if (err) {
+							console.error(err);
+							cb('failed'); //这里有一个异步循环的问题 暂时放一下。。用async可以解决
+						}
+					});
+				});
+				cb('succeed');
 			});
 		}
 	};
@@ -27517,7 +27531,20 @@
 			});
 		});
 	});
-
+	router.post('/blog_classify_modify', function (req, res, next) {
+		var classifyList = req.body.classifyList;
+		classifyModel.modify(classifyList, function (status) {
+			if (status == 'failed') {
+				res.json({
+					status: 0
+				});
+			} else {
+				res.json({
+					status: 1
+				});
+			}
+		});
+	});
 	// 获取评论
 	router.post('/get_comments', function (req, res, next) {
 		var title = req.body.title;

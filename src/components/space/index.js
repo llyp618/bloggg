@@ -32,23 +32,25 @@ class Space extends React.Component{
 			)
 		}
 		let sHash = window.location.hash;
-		let isBolgList = sHash == "#/space/space_blog_list" || sHash == "#/space" ? true : false;
 		return (
 			<Page isLeftMenu={true} isRightMenu={false}>
 				<div className="space-container">
 				  <Card className="contents-header">
-				  	<div className={isBolgList ? "add-blog" : "add-blog hide"}>
+				  	<div className={(sHash == "#/space/space_blog_list" || sHash == "#/space") ? "add-blog" : "add-blog hide"}>
 					  	<Link to="/space/space_article_edit">
 					  		<RaisedButton label="新 增" primary={true} />
 					  	</Link>
 				  	</div>
 				  	<div className="switch-contents"> 
 					  	<Link to="/space/space_blog_list">
-					  		<RaisedButton label="文 章" className="btn" secondary={isBolgList} />
+					  		<RaisedButton label="文 章" className="btn" secondary={sHash == "#/space/space_blog_list" || sHash == "#/space"} />
 					  	</Link>
 					  	<Link to="/space/space_comment_list">
-				  			<RaisedButton label="评 论" className="btn" secondary={!isBolgList} />
-					  	</Link> 	
+				  			<RaisedButton label="评 论" className="btn" secondary={sHash == "#/space/space_comment_list"} />
+					  	</Link>
+					  	<Link to="/space/space_classify_list">
+				  			<RaisedButton label="类目" className="btn" secondary={sHash == "#/space/space_classify_list"} />
+					  	</Link>  	
 				  	</div>
 			  	</Card>
 					<div className="contents-main">

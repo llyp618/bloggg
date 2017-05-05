@@ -171,7 +171,20 @@ router.get('/blog_classify_list',function(req,res,next){
 		})
 	})
 })
-
+router.post('/blog_classify_modify',function(req,res,next){
+	var classifyList = req.body.classifyList
+	classifyModel.modify(classifyList,function(status){
+		if(status == 'failed'){
+			res.json({
+				status:0
+			})
+		}else {
+			res.json({
+				status:1
+			})
+		}
+	})
+})
 // 获取评论
 router.post('/get_comments',function(req,res,next){
 	var title = req.body.title

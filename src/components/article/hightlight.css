@@ -108,3 +108,16 @@ p {
 .hljs-link {
   text-decoration: underline;
 }
+
+.article-card table {
+  border-collapse: collapse;
+}
+.article-card table td,.article-card table th{
+  border: 1px solid #ccc;
+  padding: 4px;
+  text-align: left;
+  text-indent: 10px;
+}
+.article-card table tr:nth-child(2n){
+  background: #F5F5F5;
+}
