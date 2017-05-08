@@ -27126,12 +27126,13 @@
 
 	module.exports = {
 		update: function update(clfy) {
-			Classify.find({ classify: clfy }, function (err, docs) {
+			Classify.find({ classify: clfy }, function (err, DOCS) {
 				if (err) {
 					console.error(err);
 					return false;
 				}
-				if (docs.length === 0) {
+				if (DOCS.length === 0) {
+					//新增
 					var classify = new Classify({
 						classify: clfy,
 						article_num: 1
@@ -27147,27 +27148,12 @@
 							console.error(berr);
 							return false;
 						}
-						docs[0].article_num = bdocs.length;
-						docs[0].save();
-					});
-				}
-				return;
-			});
-		},
-		delete: function _delete(clfy) {
-			Blog.find({ classify: clfy }, function (err, docs) {
-				if (err) {
-					console.error(err);
-					return false;
-				}
-				if (docs.length === 0) {
-					Classify.findOne({ classify: clfy }, function (err, doc) {
-						if (err) {
-							console.error(err);
-							return false;
-						}
-						if (doc) {
-							doc.remove();
+						if (bdocs.length === 0) {
+							//=0表明已删除所有类目下文章
+							DOCS[0].remove();
+						} else {
+							DOCS[0].article_num = bdocs.length; //更新文章数目
+							DOCS[0].save();
 						}
 					});
 				}
@@ -27432,7 +27418,8 @@
 		    content = req.body.content,
 		    _id = req.body._id,
 		    info = req.body.info,
-		    create_time = moment().format('YYYY-MM-DD HH:mm:ss');
+		    create_time = moment().format('YYYY-MM-DD HH:mm:ss'),
+		    oldClassify = req.body.oldClassify;
 		var blog = {
 			title: title,
 			classify: classify,
@@ -27449,6 +27436,9 @@
 					});
 				} else if (status == 'success') {
 					classifyModel.update(classify); //添加文章类型表
+					if (oldClassify != classify) {
+						classifyModel.update(oldClassify);
+					}
 					res.json({
 						status: 1
 					});
@@ -27465,6 +27455,9 @@
 				});
 			} else if (status == 'success') {
 				classifyModel.update(classify);
+				if (oldClassify != classify) {
+					classifyModel.update(oldClassify);
+				}
 				res.json({
 					status: 1
 				});
@@ -27517,7 +27510,6 @@
 				});
 			} else if (status == 'success') {
 				classifyModel.update(clfy);
-				classifyModel.delete(clfy); //如果被删除文章类目下没有文章了，删除该类目
 				commentModel.deleteAll(title); //删除该文章下所有的评论
 				res.json({
 					status: 1

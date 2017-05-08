@@ -74,7 +74,8 @@ class SpaceArticleEdit extends React.Component{
 				classify:'',
 				content:'',
 				_id:'',
-				info:''
+				info:'',
+				oldClassify:''
 			},
 			classify:[]
 		}
@@ -107,7 +108,8 @@ class SpaceArticleEdit extends React.Component{
 							classify:data.blog.classify,
 							content:data.blog.content,
 							info:data.blog.info,
-							_id:this.props.params.blog_id
+							_id:this.props.params.blog_id,
+							oldClassify:data.blog.classify
 						}
 					})
 				})
@@ -154,7 +156,8 @@ class SpaceArticleEdit extends React.Component{
 				classify:classify,
 				content:content,
 				info:info,
-				_id:this.state.blog_info._id
+				_id:this.state.blog_info._id,
+				oldClassify:this.state.blog_info.oldClassify
 			})
 		}).then((res) =>{
 			return res.json();

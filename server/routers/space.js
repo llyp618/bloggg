@@ -55,7 +55,8 @@ router.post('/blog_create_modify',function(req,res,next){
 	    content = req.body.content,
 	    _id = req.body._id,
 	    info = req.body.info,
-	    create_time = moment().format('YYYY-MM-DD HH:mm:ss')
+	    create_time = moment().format('YYYY-MM-DD HH:mm:ss'),
+	    oldClassify = req.body.oldClassify
 	var blog = {
 		title:title,
 		classify:classify,
@@ -72,6 +73,9 @@ router.post('/blog_create_modify',function(req,res,next){
 				})
 			}else if (status == 'success'){
 				classifyModel.update(classify)  //添加文章类型表
+				if(oldClassify != classify ) {
+					classifyModel.update(oldClassify)
+				}
 				res.json({
 					status:1
 				})
@@ -87,7 +91,10 @@ router.post('/blog_create_modify',function(req,res,next){
 				status:0
 			})
 		}else if (status == 'success'){
-			classifyModel.update(classify)
+			classifyModel.update(classify)	
+			if(oldClassify != classify ) {
+				classifyModel.update(oldClassify)
+			}
 			res.json({
 				status:1
 			})
@@ -141,7 +148,6 @@ router.post('/blog_delete',function(req,res,next){
 			})
 		}else if (status == 'success'){
 			classifyModel.update(clfy)
-			classifyModel.delete(clfy)  //如果被删除文章类目下没有文章了，删除该类目
 			commentModel.deleteAll(title)  //删除该文章下所有的评论
 			res.json({
 				status:1

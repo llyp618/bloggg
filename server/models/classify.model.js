@@ -3,12 +3,12 @@ var Blog = require('../db/mongoose').Blog
 
 module.exports = {
 	update:function(clfy){
-		Classify.find({classify:clfy},function(err,docs){
+		Classify.find({classify:clfy},function(err,DOCS){
 			if(err){
 				console.error(err)
 				return false
 			}
-			if(docs.length === 0){
+			if(DOCS.length === 0){   //新增
 				var classify = new Classify({
 					classify:clfy,
 					article_num:1
@@ -24,31 +24,15 @@ module.exports = {
 						console.error(berr)
 						return false
 					}
-					docs[0].article_num = bdocs.length
-					docs[0].save()
+					if(bdocs.length === 0){    //=0表明已删除所有类目下文章
+						DOCS[0].remove()
+					}else{
+						DOCS[0].article_num = bdocs.length      //更新文章数目
+						DOCS[0].save()
+					}
 				})
 			}
 			return 
-		})
-	},
-	delete:function(clfy){
-		Blog.find({classify:clfy},function(err,docs){
-			if(err){
-				console.error(err)
-				return false;
-			}
-			if(docs.length === 0){
-				Classify.findOne({classify:clfy},function(err,doc){
-					if(err){
-						console.error(err)
-						return false
-					}
-					if(doc){
-						doc.remove()
-					}
-				})
-			}
-			return
 		})
 	},
 	getList:function(cb){
