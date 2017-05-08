@@ -19,8 +19,12 @@ class SpaceClassifyList extends React.Component{
 				return res.json()
 			})
 			.then((data) => {
+				let classifyList=[];
+				data.classifyList.map((v,i) => {
+					classifyList.push(v.classify)
+				})
 				this.setState({
-					classifyList:data.classifyList,
+					classifyList:classifyList,
 					loaded:true
 				})
 			})
@@ -73,14 +77,14 @@ class SpaceClassifyList extends React.Component{
 					<TableRowColumn>{i+1}</TableRowColumn>
 	        <TableRowColumn>{v}</TableRowColumn>
 	        <TableRowColumn>
-	        	<RaisedButton label="修改" onClick={() => {}}/> &nbsp;
+	        	 {/*  <RaisedButton label="修改" onClick={() => {}}/> &nbsp;*/}
 	        </TableRowColumn>
 	      </TableRow> :
 				<TableRow selectable={false} key={i}>
 					<TableRowColumn>{i+1}</TableRowColumn>
 	        <TableRowColumn>{v}</TableRowColumn>
 	        <TableRowColumn>
-	        	<RaisedButton label="修改" onClick={() => {}}/> &nbsp;
+	        	 {/*  <RaisedButton label="修改" onClick={() => {}}/> &nbsp;*/}
 	        	<RaisedButton label="上移" onClick={() => {this.classifyUp(i)}}/>
 	        </TableRowColumn>
 	      </TableRow>

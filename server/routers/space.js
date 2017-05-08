@@ -71,7 +71,7 @@ router.post('/blog_create_modify',function(req,res,next){
 					status:0
 				})
 			}else if (status == 'success'){
-				classifyModel.add(classify)  //添加文章类型表
+				classifyModel.update(classify)  //添加文章类型表
 				res.json({
 					status:1
 				})
@@ -87,7 +87,7 @@ router.post('/blog_create_modify',function(req,res,next){
 				status:0
 			})
 		}else if (status == 'success'){
-			classifyModel.add(classify)
+			classifyModel.update(classify)
 			res.json({
 				status:1
 			})
@@ -134,23 +134,18 @@ router.post('/bloglist',function(req,res,next){
 // 删除文章
 router.post('/blog_delete',function(req,res,next){
 	var _id = req.body._id
-	blogModel.removeOne(_id,function(status,clfy){
+	blogModel.removeOne(_id,function(status,clfy,title){
 		if(status == 'failed') {
 			res.json({
 				status:0
 			})
 		}else if (status == 'success'){
+			classifyModel.update(clfy)
 			classifyModel.delete(clfy)  //如果被删除文章类目下没有文章了，删除该类目
+			commentModel.deleteAll(title)  //删除该文章下所有的评论
 			res.json({
 				status:1
 			})
-			// blogModel.getList(currentPage,{},['-__v','-content'],function(docs,totalPages){
-			// 	res.json({
-			// 		blogs:docs,
-			// 		totalPages:totalPages,
-			// 		status:1
-			// 	})
-			// });
 		}
 	})
 })
@@ -164,7 +159,7 @@ router.get('/blog_classify_list',function(req,res,next){
 			return false
 		}
 		var list = docs.map(function(v,i){
-			return v.classify
+			return {classify:v.classify,article_num:v.article_num}
 		})
 		res.json({
 			classifyList:list

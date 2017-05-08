@@ -75,12 +75,13 @@ module.exports = {
 			}
 			if(doc){
 				var clfy = doc.classify
+				var title = doc.title
 				doc.remove(function(){
 					if(err){
 						console.error(err)
-						return cb('failed',clfy)
+						return cb('failed',clfy,title)
 					}else {
-						return cb('success',clfy)
+						return cb('success',clfy,title)
 					}
 				});
 			}

@@ -7,6 +7,10 @@ module.exports = {
 	delete:function(_id,cb){
 		Comments.find({}).deleteOne({_id:_id}).exec(cb)
 	},
+	deleteAll:function(title){
+		console.log(title)
+		Comments.find({}).deleteMany({title:title}).exec()
+	},
 	getlist:function(title,cb){
 		Comments.where('title',title).exec(cb)
 	},

@@ -108,7 +108,7 @@ class Comment extends React.Component {
 		})
 		if(comments.length == 0){
 			comments.push(
-				<li key={-1}>
+				<li key={-1} className="commentLi">
   				<p className="commentText">暂无评论。。。</p>
   			</li>
 			)
@@ -120,7 +120,7 @@ class Comment extends React.Component {
 	  			<CSSTransitionGroup
 	          transitionName="ali"
 	          transitionEnterTimeout={500}
-	          transitionLeaveTimeout={300}>
+	          transitionLeaveTimeout={200}>
 	  				{comments}
 	        </CSSTransitionGroup>
 	  		</ul>

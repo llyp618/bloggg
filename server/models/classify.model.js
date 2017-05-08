@@ -2,7 +2,7 @@ var Classify = require('../db/mongoose').Classify
 var Blog = require('../db/mongoose').Blog
 
 module.exports = {
-	add:function(clfy){
+	update:function(clfy){
 		Classify.find({classify:clfy},function(err,docs){
 			if(err){
 				console.error(err)
@@ -10,12 +10,22 @@ module.exports = {
 			}
 			if(docs.length === 0){
 				var classify = new Classify({
-					classify:clfy
+					classify:clfy,
+					article_num:1
 				})
 				classify.save(function(err){
 					if(err){
 						console.error(err)
 					}
+				})
+			}else {
+				Blog.find({classify:clfy},function(berr,bdocs){
+					if(berr){
+						console.error(berr)
+						return false
+					}
+					docs[0].article_num = bdocs.length
+					docs[0].save()
 				})
 			}
 			return 

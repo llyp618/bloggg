@@ -23,7 +23,8 @@ module.exports = {
 		pv:Number
 	})),
 	Classify:mongoose.model('Classify',new mongoose.Schema({
-		classify:String
+		classify:String,
+		article_num:Number
 	})),
 	Comments:mongoose.model('Comments',new mongoose.Schema({
 		title:String,

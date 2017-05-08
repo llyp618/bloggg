@@ -3,6 +3,7 @@ html,body,#app{
 }
 body {
 	min-width: 1120px;
+	font-family: 'Microsoft YaHei',sans-serif;
 }
 .link,.link:hover,.link:active,.link:visited {
 	color:rgba(0, 0, 0, 0.870588);

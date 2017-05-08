@@ -121,8 +121,12 @@ class SpaceArticleEdit extends React.Component{
 				return res.json()
 			})
 			.then((data) => {
+				let classifyList=[];
+				data.classifyList.map((v,i) => {
+					classifyList.push(v.classify)
+				})
 				this.setState({
-					classify:data.classifyList
+					classify:classifyList
 				})
 			})
 		});

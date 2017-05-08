@@ -6968,7 +6968,8 @@
 			pv: Number
 		})),
 		Classify: mongoose.model('Classify', new mongoose.Schema({
-			classify: String
+			classify: String,
+			article_num: Number
 		})),
 		Comments: mongoose.model('Comments', new mongoose.Schema({
 			title: String,
@@ -7065,12 +7066,13 @@
 				}
 				if (doc) {
 					var clfy = doc.classify;
+					var title = doc.title;
 					doc.remove(function () {
 						if (err) {
 							console.error(err);
-							return cb('failed', clfy);
+							return cb('failed', clfy, title);
 						} else {
-							return cb('success', clfy);
+							return cb('success', clfy, title);
 						}
 					});
 				}
@@ -11416,6 +11418,10 @@
 		},
 		delete: function _delete(_id, cb) {
 			Comments.find({}).deleteOne({ _id: _id }).exec(cb);
+		},
+		deleteAll: function deleteAll(title) {
+			console.log(title);
+			Comments.find({}).deleteMany({ title: title }).exec();
 		},
 		getlist: function getlist(title, cb) {
 			Comments.where('title', title).exec(cb);
@@ -27119,7 +27125,7 @@
 	var Blog = __webpack_require__(12).Blog;
 
 	module.exports = {
-		add: function add(clfy) {
+		update: function update(clfy) {
 			Classify.find({ classify: clfy }, function (err, docs) {
 				if (err) {
 					console.error(err);
@@ -27127,12 +27133,22 @@
 				}
 				if (docs.length === 0) {
 					var classify = new Classify({
-						classify: clfy
+						classify: clfy,
+						article_num: 1
 					});
 					classify.save(function (err) {
 						if (err) {
 							console.error(err);
 						}
+					});
+				} else {
+					Blog.find({ classify: clfy }, function (berr, bdocs) {
+						if (berr) {
+							console.error(berr);
+							return false;
+						}
+						docs[0].article_num = bdocs.length;
+						docs[0].save();
 					});
 				}
 				return;
@@ -27432,7 +27448,7 @@
 						status: 0
 					});
 				} else if (status == 'success') {
-					classifyModel.add(classify); //添加文章类型表
+					classifyModel.update(classify); //添加文章类型表
 					res.json({
 						status: 1
 					});
@@ -27448,7 +27464,7 @@
 					status: 0
 				});
 			} else if (status == 'success') {
-				classifyModel.add(classify);
+				classifyModel.update(classify);
 				res.json({
 					status: 1
 				});
@@ -27494,23 +27510,18 @@
 	// 删除文章
 	router.post('/blog_delete', function (req, res, next) {
 		var _id = req.body._id;
-		blogModel.removeOne(_id, function (status, clfy) {
+		blogModel.removeOne(_id, function (status, clfy, title) {
 			if (status == 'failed') {
 				res.json({
 					status: 0
 				});
 			} else if (status == 'success') {
+				classifyModel.update(clfy);
 				classifyModel.delete(clfy); //如果被删除文章类目下没有文章了，删除该类目
+				commentModel.deleteAll(title); //删除该文章下所有的评论
 				res.json({
 					status: 1
 				});
-				// blogModel.getList(currentPage,{},['-__v','-content'],function(docs,totalPages){
-				// 	res.json({
-				// 		blogs:docs,
-				// 		totalPages:totalPages,
-				// 		status:1
-				// 	})
-				// });
 			}
 		});
 	});
@@ -27524,7 +27535,7 @@
 				return false;
 			}
 			var list = docs.map(function (v, i) {
-				return v.classify;
+				return { classify: v.classify, article_num: v.article_num };
 			});
 			res.json({
 				classifyList: list

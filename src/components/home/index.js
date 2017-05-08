@@ -19,7 +19,7 @@ class EntryPaper extends React.Component {
 			display: 'inline-block',
 		}
 	}
-	_onMouseEnter = () => this.setState({zDepth:3});
+	_onMouseEnter = () => this.setState({zDepth:2});
 	_onMouseLeave = () => this.setState({zDepth:1});
 	render(){
 		return (
@@ -40,9 +40,6 @@ class Entry extends React.Component {
 			<div className="entry-wrap">
 				<EntryPaper>
 					<Link className="link" to="/visit/blog/all">
-						<div className="entry-paper-header">
-							技术积累
-						</div>
 						<div className="entry-paper-body">
 							<img src={blogImg} width="90%" alt=""/>
 						</div>
@@ -50,9 +47,6 @@ class Entry extends React.Component {
 				</EntryPaper>
 				<EntryPaper>
 					<Link className="link" to="/visit/daily">
-						<div className="entry-paper-header">
-							我的日常
-						</div>
 						<div className="entry-paper-body">
 							<img src={dailyImg} width="90%" alt=""/>
 						</div>
@@ -60,9 +54,6 @@ class Entry extends React.Component {
 				</EntryPaper>
 				<EntryPaper>
 					<Link className="link" to="/space">
-						<div className="entry-paper-header">
-							个人空间
-						</div>
 						<div className="entry-paper-body">
 							<img src={spaceImg} width="90%" alt=""/>
 						</div>

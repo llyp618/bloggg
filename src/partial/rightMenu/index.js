@@ -29,9 +29,9 @@ class RightMenu extends React.Component{
 	render(){
 		let classifyList = this.state.classifyList, ListItems = [];
 		classifyList.map( (v,i) => {
-			if(v == 'Daily') return;
+			if(v.classify == 'Daily') return;
 			ListItems.push(
-					<Link to={`/visit/blog/${encodeURI(v)}`} key={i} className="fast-link" activeStyle={{background:'#f3f3f3'}}>{v}</Link>
+					<Link to={`/visit/blog/${encodeURI(v.classify)}`} key={i} className="fast-link" activeStyle={{background:'#f3f3f3'}}>{v.classify}({v.article_num})</Link>
 			)
 		})
 		return (
