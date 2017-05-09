@@ -73,7 +73,7 @@ router.post('/blog_create_modify',function(req,res,next){
 				})
 			}else if (status == 'success'){
 				classifyModel.update(classify)  //添加文章类型表
-				if(oldClassify != classify ) {
+				if(oldClassify != classify && oldClassify != '') {
 					classifyModel.update(oldClassify)
 				}
 				res.json({
@@ -91,10 +91,7 @@ router.post('/blog_create_modify',function(req,res,next){
 				status:0
 			})
 		}else if (status == 'success'){
-			classifyModel.update(classify)	
-			if(oldClassify != classify ) {
-				classifyModel.update(oldClassify)
-			}
+			classifyModel.update(classify)
 			res.json({
 				status:1
 			})

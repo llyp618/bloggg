@@ -8,7 +8,6 @@ module.exports = {
 		Comments.find({}).deleteOne({_id:_id}).exec(cb)
 	},
 	deleteAll:function(title){
-		console.log(title)
 		Comments.find({}).deleteMany({title:title}).exec()
 	},
 	getlist:function(title,cb){

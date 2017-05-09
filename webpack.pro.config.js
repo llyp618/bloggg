@@ -51,7 +51,22 @@ module.exports = {
 		]
 	},
 	plugins:[
+		new webpack.DefinePlugin({
+           "process.env": { 
+				     NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development") 
+				   }
+        }),
+		new webpack.optimize.OccurrenceOrderPlugin(), //排序
+		new webpack.optimize.DedupePlugin(), //模块去重
 		new ExtractTextPlugin("styles.css"), //css单独打包
-		new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js')
+		new webpack.optimize.UglifyJsPlugin({
+		    compress: {
+		        warnings: false
+		    }
+		}),
+		new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
+		new HtmlWebpackPlugin({
+			template:path.join(__dirname,'dist/index.html')    //html-webpack-plugin 插件取相应的模板去插入，
+		})
 	]
 };

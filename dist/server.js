@@ -11420,7 +11420,6 @@
 			Comments.find({}).deleteOne({ _id: _id }).exec(cb);
 		},
 		deleteAll: function deleteAll(title) {
-			console.log(title);
 			Comments.find({}).deleteMany({ title: title }).exec();
 		},
 		getlist: function getlist(title, cb) {
@@ -27436,7 +27435,7 @@
 					});
 				} else if (status == 'success') {
 					classifyModel.update(classify); //添加文章类型表
-					if (oldClassify != classify) {
+					if (oldClassify != classify && oldClassify != '') {
 						classifyModel.update(oldClassify);
 					}
 					res.json({
@@ -27455,9 +27454,6 @@
 				});
 			} else if (status == 'success') {
 				classifyModel.update(classify);
-				if (oldClassify != classify) {
-					classifyModel.update(oldClassify);
-				}
 				res.json({
 					status: 1
 				});
