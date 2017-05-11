@@ -11,7 +11,6 @@ module.exports = {
 	output:{
 		path:'./dist',
 		filename:'bundle.js',
-		chunkFilename:'[name].[chunkhash:5].chunk.js'
 	},
 	devServer:{                //webpack-dev-server 需要安装
 		contentBase:'./dist',

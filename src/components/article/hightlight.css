@@ -26,9 +26,6 @@ pre {
 hr {
   border-color: #FCFCFC;
 }
-h4 {
-  color: #414DFC;
-}
 p {
   line-height: 32px;
 }
@@ -120,3 +117,18 @@ p {
 .article-card table tr:nth-child(2n){
   background: #F5F5F5;
 }
+
+
+.preview-area h3,.preview-area h4, .preview-area h1,.preview-area h2,.preview-area h5,.article-card h3,.article-card h4, .article-card h1,.article-card h2,.article-card h5{
+  text-align: left;
+  margin: 20px 0;
+  padding: 0;
+  color: rgb(255, 64, 129);
+}
+
+
+
+
+
+
+

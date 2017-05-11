@@ -61,8 +61,7 @@ router.post('/blog_create_modify',function(req,res,next){
 		title:title,
 		classify:classify,
 		content:content,
-		info:info,
-		create_time:create_time
+		info:info
 	}
 	//如果_id不为空 则修改 
 	if ( _id != '' && _id.length != 0){
@@ -83,8 +82,9 @@ router.post('/blog_create_modify',function(req,res,next){
 		})
 		return false;
 	}
-	// 增加个pv数
+	//新建文章 增加个pv数 和 创建时间
 	blog.pv = 0;
+	blog.create_time = create_time;
 	blogModel.create(blog,function(status){
 		if(status == 'failed') {
 			res.json({
