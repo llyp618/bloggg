@@ -5,7 +5,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');  //用来生成html
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
 	entry:{
-		js:'./src/app.js',
+		js:['babel-polyfill','./src/app.js'],
 		vendor:['react','react-router','react-dom','whatwg-fetch','material-ui']
 	},
 	output:{
