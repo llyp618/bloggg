@@ -86,7 +86,7 @@ class Page extends React.Component {
 							Email : &nbsp;&nbsp;&nbsp;lllyp618@163.com &nbsp;&nbsp;(～ o ～)~zZ 
 						</p>
 						<p>
-							<a href="https://www.aliyun.com/" target="_blank">阿里云</a>
+							浙ICP备17019260号
 						</p>
 					</div>
 				</div>
