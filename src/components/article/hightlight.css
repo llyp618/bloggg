@@ -126,7 +126,11 @@ p {
   color: rgb(255, 64, 129);
 }
 
-
+.article-card img,.preview-area img{
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
 
 
 
