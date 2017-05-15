@@ -6,7 +6,7 @@ class Loading extends React.Component {
 		super(props);
 		this.style = {
 			div:{
-				width:400,
+				width:200,
 				margin:'0 auto',
 				marginTop:100,
 				padding:20,
