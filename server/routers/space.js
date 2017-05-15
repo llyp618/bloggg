@@ -9,13 +9,9 @@ var sha1 = require('sha1')
 var jwt = require('jsonwebtoken')
 // token 验证
 router.post('/space_auth',function(req,res,next){
-	res.set('Access-Control-Expose-Headers', 'access-token')
+	// res.set('Access-Control-Expose-Headers', 'access-token')
 	var unAuth = true
 	var token = req.headers['access-token']
-	// if(token == SECRET) {
-	// 	unAuth = false
-
-	// }
 	jwt.verify(token,config.token.secret,function(err,decoded){
 		if(err){
 			res.sendStatus(401)
@@ -23,15 +19,9 @@ router.post('/space_auth',function(req,res,next){
 			res.sendStatus(200)
 		}
 	})
-	// if(unAuth){
-	// 	res.sendStatus(401)
-	// } else {
-	// 	res.sendStatus(200)
-	// }
 })
 //登录
 router.post('/space_login',function(req,res,next){
-	res.set('Access-Control-Expose-Headers','access-token')
 	var account = req.body.account
 	var password = req.body.password
 	if(sha1(account) != config.account || sha1(password) != config.password) {
