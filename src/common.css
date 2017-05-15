@@ -63,3 +63,12 @@ body {
 -ms-user-select: none;
 user-select: none;
 }
+@media screen and (max-width: 760px) {
+	body {
+		width: 100%;
+		min-width: 0;
+	}
+	.blog-time {
+		display: none;
+	}
+}

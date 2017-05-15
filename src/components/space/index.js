@@ -11,6 +11,8 @@ class Space extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
+			isLeftMenuDocked:true,
+			isLeftMenu:true,
 			loaded:false
 		}
 	}
@@ -21,10 +23,30 @@ class Space extends React.Component{
 			})
 		});
 	}
+	checkDeviceWidth = () => {
+		let winWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || 0;
+		if(winWidth < 760){
+			this.setState({
+				isLeftMenu:false,
+				isLeftMenuDocked:false
+			})
+		}
+		if(winWidth > 760){
+			this.setState({
+				isLeftMenu:true,
+				isLeftMenuDocked:true
+			})
+		}
+	}
+
+	componentWillMount() {
+		this.checkDeviceWidth()
+		window.onresize = this.checkDeviceWidth;
+	}
 	render(){
 		if(!this.state.loaded){
 			return (
-				<Page isLeftMenu={true} isRightMenu={false}>
+				<Page isLeftMenuDocked={this.state.isLeftMenuDocked} isLeftMenu={this.state.isLeftMenu} isRightMenu={false}>
 					<div className="space-container">
 						<Loading words=""/>
 					</div>
@@ -33,7 +55,7 @@ class Space extends React.Component{
 		}
 		let sHash = window.location.hash;
 		return (
-			<Page isLeftMenu={true} isRightMenu={false}>
+			<Page isLeftMenuDocked={this.state.isLeftMenuDocked} isLeftMenu={this.state.isLeftMenu} isRightMenu={false}>
 				<div className="space-container">
 				  <Card className="contents-header">
 				  	<div className={(sHash == "#/space/space_blog_list" || sHash == "#/space") ? "add-blog" : "add-blog hide"}>

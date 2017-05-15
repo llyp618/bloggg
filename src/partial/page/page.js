@@ -22,12 +22,15 @@ class Page extends React.Component {
 	handleClose = () => this.setState({open: false})
 
 	itemTouchtapHandler = (event,item,index) => {
-		let nextHash = item.props.value
+		let nextHash = item.props.value;
 		//bug
 		if(nextHash == '#/visit/blog') {
 			nextHash = '#/visit/blog/all'
 		}
 		window.location.hash = nextHash;
+		this.setState({
+			open:!this.state.open
+		})
 	}
 	componentWillMount() {
 		window.scrollTo(0,0)
@@ -59,7 +62,7 @@ class Page extends React.Component {
 		return (
 				<div className="main-page">
 					<AppBar title="LuLu's Blog" onLeftIconButtonTouchTap={this.drawerToggle} style={{position:"fixed",top:0}} />
-					<Drawer open={this.props.isLeftMenu ? true : this.state.open  }  onRequestChange={(open) => this.setState({open})} width={224}>
+					<Drawer docked={this.props.isLeftMenuDocked} open={this.props.isLeftMenu ? true : this.state.open  }  onRequestChange={(open) => this.setState({open})} width={224}>
 						<AppBar 
 							title={<Link to="/" className="link" style={{color:"#fff"}}>Home</Link>}
 					    iconElementLeft={<IconButton><FontIcon className="iconfont icon-home2" /></IconButton>}

@@ -134,11 +134,36 @@ class LoginBox extends React.Component{
 
 
 class SpaceLogin extends React.Component{
+	constructor(props){
+		super(props);
+		this.state={
 
+		}
+	}
+	checkDeviceWidth = () => {
+		let winWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || 0;
+		if(winWidth < 760){
+			this.setState({
+				isLeftMenu:false,
+				isLeftMenuDocked:false
+			})
+		}
+		if(winWidth > 760){
+			this.setState({
+				isLeftMenu:true,
+				isLeftMenuDocked:true
+			})
+		}
+	}
+
+	componentWillMount() {
+		this.checkDeviceWidth()
+		window.onresize = this.checkDeviceWidth;
+	}
 	render(){
 		return (
-			<Page isLeftMenu={true} isRightMenu={false}>
-				<div style={{marginLeft:220}}>
+			<Page isLeftMenuDocked={this.state.isLeftMenuDocked} isLeftMenu={this.state.isLeftMenu} isRightMenu={false}>
+				<div style={!this.state.isLeftMenu ? {} : {marginLeft:220}}>
 					<h3>登 录</h3>
 					<LoginBox />
 				</div>

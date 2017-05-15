@@ -73,7 +73,7 @@ class Blog extends React.Component {
 			CardList.push(
 				<Card className="article-card" key={i}>
 			    <CardTitle title={data.title} subtitle={data.classify}>
-			    	<span style={this.style.blog_time}>{data.create_time}</span>
+			    	<span style={this.style.blog_time} className="blog-time">{data.create_time}</span>
 			    </CardTitle>
 			    <CardText>
 			      {data.info}
