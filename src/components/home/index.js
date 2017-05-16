@@ -39,14 +39,14 @@ class Entry extends React.Component {
 		return (
 			<div className="entry-wrap">
 				<EntryPaper>
-					<Link className="link" to="/visit/blog/all">
+					<Link className="link" to="/blog/all">
 						<div className="entry-paper-body">
 							<img src={blogImg} width="90%" alt=""/>
 						</div>
 					</Link>
 				</EntryPaper>
 				<EntryPaper>
-					<Link className="link" to="/visit/daily">
+					<Link className="link" to="/daily">
 						<div className="entry-paper-body">
 							<img src={dailyImg} width="90%" alt=""/>
 						</div>
@@ -67,10 +67,10 @@ class Home extends React.Component {
 
 	render(){
 		return (
-				<Page isLeftMenu={false} isRightMenu={false} isHome={true}>
+				<div className="main-content">
 					<h1 className="website-title">LuLu的博客</h1>
 					<Entry />
-				</Page>
+				</div>
 			)
 	}
 }

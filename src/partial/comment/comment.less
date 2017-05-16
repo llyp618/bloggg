@@ -92,11 +92,13 @@
 			padding:2px;
 		}
 		.commentField {
-			margin:4px;
-			padding:0 5px;
+			& > div:first-child {
+				width:auto !important;
+			}
+			margin:10px;
+			padding:0 10px 30px;
 			.postBtn {
-				right:8px;
-				top:22px;
+				position: static;
 			}
 		}
 	}

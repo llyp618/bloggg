@@ -27371,29 +27371,25 @@
 	var jwt = __webpack_require__(395);
 	// token 验证
 	router.post('/space_auth', function (req, res, next) {
-		res.set('Access-Control-Expose-Headers', 'access-token');
+		// res.set('Access-Control-Expose-Headers', 'access-token')
 		var unAuth = true;
 		var token = req.headers['access-token'];
-		// if(token == SECRET) {
-		// 	unAuth = false
-
-		// }
 		jwt.verify(token, config.token.secret, function (err, decoded) {
 			if (err) {
-				res.sendStatus(401);
+				// res.sendStatus('401')
+				res.json({
+					status: 0
+				});
 			} else {
-				res.sendStatus(200);
+				// res.sendStatus(200)
+				res.json({
+					status: 1
+				});
 			}
 		});
-		// if(unAuth){
-		// 	res.sendStatus(401)
-		// } else {
-		// 	res.sendStatus(200)
-		// }
 	});
 	//登录
 	router.post('/space_login', function (req, res, next) {
-		res.set('Access-Control-Expose-Headers', 'access-token');
 		var account = req.body.account;
 		var password = req.body.password;
 		if (sha1(account) != config.account || sha1(password) != config.password) {
@@ -27403,10 +27399,10 @@
 			});
 		} else {
 			var token = jwt.sign({ key: config.token.key }, config.token.secret, { expiresIn: config.token.expireTime });
-			res.set('access-token', token);
 			res.json({
 				status: 1,
-				msg: '登录成功!'
+				msg: '登录成功!',
+				access_token: token
 			});
 		}
 	});

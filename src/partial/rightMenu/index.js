@@ -31,7 +31,7 @@ class RightMenu extends React.Component{
 		classifyList.map( (v,i) => {
 			if(v.classify == 'Daily') return;
 			ListItems.push(
-					<Link to={`/visit/blog/${encodeURI(v.classify)}`} key={i} className="fast-link" activeStyle={{background:'#f3f3f3'}}>{v.classify}({v.article_num})</Link>
+					<Link to={`/blog/${encodeURI(v.classify)}`} key={i} className="fast-link" activeStyle={{background:'#f3f3f3'}}>{v.classify}({v.article_num})</Link>
 			)
 		})
 		return (
@@ -43,7 +43,7 @@ class RightMenu extends React.Component{
 					</div>
 					<Divider />
 					<div className="info-list">
-						<Link to={`/visit/blog/all`} className="fast-link" activeStyle={{background:'#f3f3f3'}}>全部分类</Link>
+						<Link to={`/blog/all`} className="fast-link" activeStyle={{background:'#f3f3f3'}}>全部分类</Link>
 						{ListItems}
 					</div>
 				</Paper>

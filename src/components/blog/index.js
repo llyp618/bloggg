@@ -84,7 +84,7 @@ class Blog extends React.Component {
 			      {data.info}
 			    </CardText>
 			    <CardActions style={{textAlign:'right'}}>
-			      <Link className="link" to={`/visit/blog/article/${data._id}`}><FlatButton primary={true}>查看全文<span className="iconfont icon-tiaozhuan"></span></FlatButton></Link>
+			      <Link className="link" to={`/blog/article/${data._id}`}><FlatButton primary={true}>查看全文<span className="iconfont icon-tiaozhuan"></span></FlatButton></Link>
 			    </CardActions>
 			  </Card>
 			)
@@ -99,19 +99,20 @@ class Blog extends React.Component {
 			)
 		}
 		return (
-				<div>
-					{CardList}
-				  <ReactPaginate 
-				  pageCount={this.state.totalPages || 1} 
-				  pageRangeDisplayed={5} 
-				  marginPagesDisplayed={2}
-				  previousLabel="上一页"
-				  nextLabel="下一页"
-				  containerClassName="pagination"
-				  onPageChange={this.handlePageChange}
-				  >
-				  </ReactPaginate>
-				</div>
+						<div>
+							{CardList}
+						  <ReactPaginate 
+						  pageCount={this.state.totalPages || 1} 
+						  pageRangeDisplayed={5} 
+						  marginPagesDisplayed={2}
+						  previousLabel="上一页"
+						  nextLabel="下一页"
+						  containerClassName="pagination"
+						  onPageChange={this.handlePageChange}
+						  >
+						  </ReactPaginate>
+						</div>
+
 			)
 	}
 }

@@ -6,7 +6,6 @@ import Menu from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
-import RightMenu from '../rightMenu';
 import './page.less';
 class Page extends React.Component {
 	constructor(props){
@@ -14,8 +13,7 @@ class Page extends React.Component {
 		this.state = {open:false};
 	}
 	static propTypes = {
-		isLeftMenu:React.PropTypes.bool.isRequired,
-		isRightMenu:React.PropTypes.bool.isRequired
+		isLeftMenu:React.PropTypes.bool.isRequired
 	};
 	drawerToggle = () => this.setState({open:!this.state.open})
 
@@ -36,29 +34,8 @@ class Page extends React.Component {
 		window.scrollTo(0,0)
 	}
 	render(){
-		let Childs = this.props.isRightMenu ?
-					<div className="main-content">
-						<div className="left-box" >
-							{this.props.children}
-						</div>
-						<RightMenu/>
-					</div> :
-		 			<div className="main-content">
-						{this.props.children}
-					</div> ;
-		// let sHashRoot = window.location.hash.match(/#\/[^\/]*/)[0];
-		let hash = window.location.hash,sHashRoot;
-		switch (0){
-			case hash.search('#/visit/blog'):
-			sHashRoot = '#/visit/blog';
-			break;
-			case hash.search('#/visit/daily'):
-			sHashRoot = '#/visit/daily';
-			break;
-			case hash.search('#/space'):
-			sHashRoot = '#/space';
-			break;
-		}
+		
+		let sHashRoot = window.location.hash.match(/#\/[^\/]*/)[0];
 		return (
 				<div className="main-page">
 					<AppBar title="LuLu's Blog" onLeftIconButtonTouchTap={this.drawerToggle} style={{position:"fixed",top:0}} />
@@ -69,12 +46,12 @@ class Page extends React.Component {
 					    onTitleTouchTap={this.handleClose}
 				     />
 				     	<Menu className="left-menu" width={200} onItemTouchTap={this.itemTouchtapHandler} value={sHashRoot}>
-							<MenuItem value="#/visit/blog"  primaryText={<span><span className="iconfont icon-bokefenlei"></span>Blog</span>} />
-							<MenuItem value="#/visit/daily" primaryText={<span><span className="iconfont icon-xiangji1"></span>Daily</span>} />
+							<MenuItem value="#/blog"  primaryText={<span><span className="iconfont icon-bokefenlei"></span>Blog</span>} />
+							<MenuItem value="#/daily" primaryText={<span><span className="iconfont icon-xiangji1"></span>Daily</span>} />
 							<MenuItem value="#/space" primaryText={<span><span className="iconfont icon-pussy"></span>Space</span>} />
 							</Menu>
 					</Drawer>
-					{Childs}
+						{this.props.children}
 					<div className={this.props.isHome?'footer home-footer':'footer'} >
 						<p>
 						  Powered by : &nbsp;&nbsp;&nbsp;

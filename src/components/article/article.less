@@ -3,7 +3,6 @@
 	overflow: hidden;
 	.articleTitle {
 		font-size: 24px;
-		float: left;
 		font-weight: bold;
 	}
 	.articleTime {
@@ -22,4 +21,11 @@
 	border-top: 1px dashed #E3E3E3;
 	height: 0;
 	border-left:none;
+}
+@media screen and (max-width: 760px) {
+	.articleHeader .articleTime {
+		position: static;
+		float: none;
+		display: block;
+	}
 }

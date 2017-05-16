@@ -8,17 +8,50 @@ import Blog from '../components/blog';
 import Daily from '../components/daily';
 import Space from '../components/space';
 import Article from '../components/article';
-import Visit from '../components/visit';
 import SpaceLogin from '../components/space/space_login';
 import SpaceBlogList from '../components/space/space_blog_list';
 import SpaceCommentList from '../components/space/space_comment_list';
 import SpaceClassifyList from '../components/space/space_classify_list.js';
 import SpaceArticleEdit from '../components/space/space_article_edit';
+import Visit from '../components/visit'
+import Page from '../partial/page/page';
 class App extends React.Component {  //组件名首字母一定要大写
+	constructor(props) {
+		super(props);
+		this.state = {
+			isLeftMenu:true,
+			isLeftMenuDocked:true
+		}
+	}
+
+	checkDeviceWidth = () => {
+		let winWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || 0;
+		if(winWidth < 760){
+			this.setState({
+				isLeftMenu:false,
+				isLeftMenuDocked:false
+			})
+		}
+		if(winWidth > 760){
+			this.setState({
+				isLeftMenu:true,
+				isLeftMenuDocked:true
+			})
+		}
+	}
+
+	componentWillMount() {
+		this.checkDeviceWidth()
+		window.onresize = this.checkDeviceWidth;
+	}
 	render(){
+		let sHashRoot = window.location.hash.match(/#\/[^\/]*/)[0];
+		let isHome = sHashRoot == '#/';   //需要优化
 		return (
 			<MuiThemeProvider>
+				<Page isHome={isHome} isLeftMenu={isHome ? false : this.state.isLeftMenu} isLeftMenuDocked={this.state.isLeftMenuDocked}>
 					{this.props.children}
+				</Page>
 			</MuiThemeProvider>
 		)
 	}
@@ -29,11 +62,11 @@ const routes=
 				<IndexRoute  component={Home} />
 				<Route path="/visit" component={Visit}>
 					<IndexRoute component={Blog} />
-					<Route path="/visit/blog(/:classify)" component={Blog}>
+					<Route path="/blog(/:classify)" component={Blog}>
 					</Route>
-					<Route path="/visit/:type/article/:id" component={Article}>
+					<Route path="/:type/article/:id" component={Article}>
 					</Route>
-					<Route path="/visit/daily" component={Daily}>
+					<Route path="/daily" component={Daily}>
 					</Route>
 				</Route>
 				<Route path="/space" component={Space}>

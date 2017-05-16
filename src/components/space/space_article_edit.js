@@ -182,15 +182,15 @@ class SpaceArticleEdit extends React.Component{
 		const category = this.state.classify
 		if(!this.state.loaded){
 			return (
-				<Page isLeftMenu={true} isRightMenu={false}>
+				<div className="main-content">
 					<div className="space-edit-container">
 						<Loading words="加载中"/>
 					</div>
-				</Page>
+				</div>
 			)
 		}
 		return (
-			<Page isLeftMenu={true} isRightMenu={false}>
+			<div className="main-content">
 				<div className="space-edit-container">
 					<div className="article-set">
 						<TextField
@@ -240,7 +240,7 @@ class SpaceArticleEdit extends React.Component{
         >
          	{this.state.dialog_words}
         </Dialog>
-			</Page>
+      </div>
 		)
 	}
 }

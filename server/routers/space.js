@@ -14,9 +14,15 @@ router.post('/space_auth',function(req,res,next){
 	var token = req.headers['access-token']
 	jwt.verify(token,config.token.secret,function(err,decoded){
 		if(err){
-			res.sendStatus(401)
+			// res.sendStatus('401')
+			res.json({
+				status:0
+			})
 		}else {
-			res.sendStatus(200)
+			// res.sendStatus(200)
+			res.json({
+				status:1
+			})
 		}
 	})
 })
@@ -31,10 +37,10 @@ router.post('/space_login',function(req,res,next){
 		})
 	}else {
 		var token = jwt.sign({key:config.token.key},config.token.secret,{expiresIn:config.token.expireTime})
-		res.set('access-token',token)
 		res.json({
 			status:1,
-			msg:'登录成功!'
+			msg:'登录成功!',
+			access_token:token
 		})
 	}
 })

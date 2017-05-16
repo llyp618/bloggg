@@ -49,10 +49,6 @@ class LoginBox extends React.Component{
 				password:sPassword
 			})
 		}).then((res) => {
-			if(res.status == 200){
-				const token = res.headers.get('access-token');
-				sessionStorage.setItem('access_token',token);
-			}
 			return res.json()
 		})
 		.then((data) => {
@@ -66,8 +62,9 @@ class LoginBox extends React.Component{
 					this.setSubmitDisabled();
 				})
 			}else if (data.status == 1){
-				hashHistory.push('/space');
-
+				const token = data.access_token;
+				sessionStorage.setItem('access_token',token);
+				hashHistory.push('/space/space_blog_list');
 			}
 		})
 	}
@@ -140,34 +137,15 @@ class SpaceLogin extends React.Component{
 
 		}
 	}
-	checkDeviceWidth = () => {
-		let winWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || 0;
-		if(winWidth < 760){
-			this.setState({
-				isLeftMenu:false,
-				isLeftMenuDocked:false
-			})
-		}
-		if(winWidth > 760){
-			this.setState({
-				isLeftMenu:true,
-				isLeftMenuDocked:true
-			})
-		}
-	}
-
-	componentWillMount() {
-		this.checkDeviceWidth()
-		window.onresize = this.checkDeviceWidth;
-	}
 	render(){
 		return (
-			<Page isLeftMenuDocked={this.state.isLeftMenuDocked} isLeftMenu={this.state.isLeftMenu} isRightMenu={false}>
-				<div style={!this.state.isLeftMenu ? {} : {marginLeft:220}}>
+			<div className="main-content">
+
+				<div className="space-login">
 					<h3>登 录</h3>
 					<LoginBox />
 				</div>
-			</Page>
+			</div>
 		)
 	}
 }

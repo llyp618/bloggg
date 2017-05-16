@@ -3,8 +3,10 @@ import Page from '../../partial/page/page';
 import {Card} from 'material-ui/Card';
 import {Link} from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import Auth from '../../partial/spaceAuth';
 import Loading from '../../partial/loading/loading';
+import {hashHistory} from 'react-router';
 import './space.less';
 
 class Space extends React.Component{
@@ -23,46 +25,25 @@ class Space extends React.Component{
 			})
 		});
 	}
-	checkDeviceWidth = () => {
-		let winWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || 0;
-		if(winWidth < 760){
-			this.setState({
-				isLeftMenu:false,
-				isLeftMenuDocked:false
-			})
-		}
-		if(winWidth > 760){
-			this.setState({
-				isLeftMenu:true,
-				isLeftMenuDocked:true
-			})
-		}
-	}
-
-	componentWillMount() {
-		this.checkDeviceWidth()
-		window.onresize = this.checkDeviceWidth;
+	logout = () => {
+		sessionStorage.removeItem('access_token');
+		hashHistory.push('/blog');
 	}
 	render(){
 		if(!this.state.loaded){
 			return (
-				<Page isLeftMenuDocked={this.state.isLeftMenuDocked} isLeftMenu={this.state.isLeftMenu} isRightMenu={false}>
+				<div className="main-content">
 					<div className="space-container">
 						<Loading words=""/>
 					</div>
-				</Page>
+				</div>
 			)
 		}
 		let sHash = window.location.hash;
 		return (
-			<Page isLeftMenuDocked={this.state.isLeftMenuDocked} isLeftMenu={this.state.isLeftMenu} isRightMenu={false}>
+			<div className="main-content">
 				<div className="space-container">
 				  <Card className="contents-header">
-				  	<div className={(sHash == "#/space/space_blog_list" || sHash == "#/space") ? "add-blog" : "add-blog hide"}>
-					  	<Link to="/space/space_article_edit">
-					  		<RaisedButton label="新 增" primary={true} />
-					  	</Link>
-				  	</div>
 				  	<div className="switch-contents"> 
 					  	<Link to="/space/space_blog_list">
 					  		<RaisedButton label="文 章" className="btn" secondary={sHash == "#/space/space_blog_list" || sHash == "#/space"} />
@@ -72,14 +53,22 @@ class Space extends React.Component{
 					  	</Link>
 					  	<Link to="/space/space_classify_list">
 				  			<RaisedButton label="类目" className="btn" secondary={sHash == "#/space/space_classify_list"} />
-					  	</Link>  	
+					  	</Link> 
+				  	</div>
+				  	<div className={(sHash == "#/space/space_blog_list" || sHash == "#/space") ? "add-blog" : "add-blog hide"}>
+					  	<Link to="/space/space_article_edit">
+					  		<RaisedButton label="新 增" primary={true} />
+					  	</Link>
+				  	</div>
+				  	<div className="log-out">
+					  	<FlatButton label="退出" onClick={this.logout} />
 				  	</div>
 			  	</Card>
 					<div className="contents-main">
 						{this.props.children}
 					</div>	
 				</div>
-			</Page>
+			</div>
 		)
 	}
 }

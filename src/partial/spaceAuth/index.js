@@ -9,11 +9,15 @@ const Auth = (cb) => {
 		}
 	}).
 	then((res) => {
-		if(res.status == 401){
+		return res.json()
+	}).
+	then((data) => {
+		if(data.status == 0){
 			hashHistory.push('/space/space_login');
-		}else if(res.status == 200){
+		}else if(data.status == 1){
 			cb();
 		}
 	})
+
 }
 export default Auth;

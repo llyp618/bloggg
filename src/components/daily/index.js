@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
 import 'whatwg-fetch';
 import ReactPaginate from 'react-paginate';
+import RightMenu from '../../partial/rightMenu';
 class Blog extends React.Component {
 	constructor(props){
 		super(props);
@@ -79,26 +80,26 @@ class Blog extends React.Component {
 			      {data.info}
 			    </CardText>
 			    <CardActions style={{textAlign:'right'}}>
-			      <Link className="link" to={`/visit/daily/article/${data._id}`}><FlatButton primary={true}>查看全文<span className="iconfont icon-tiaozhuan"></span></FlatButton></Link>
+			      <Link className="link" to={`/daily/article/${data._id}`}><FlatButton primary={true}>查看全文<span className="iconfont icon-tiaozhuan"></span></FlatButton></Link>
 			    </CardActions>
 			  </Card>
 			)
 		})
 
 		return (
-				<div>
-					{CardList}
-				  <ReactPaginate 
-				  pageCount={this.state.totalPages} 
-				  pageRangeDisplayed={5} 
-				  marginPagesDisplayed={2}
-				  previousLabel="上一页"
-				  nextLabel="下一页"
-				  containerClassName="pagination"
-				  onPageChange={this.handlePageChange}
-				  >
-				  </ReactPaginate>
-				</div>
+						<div>
+							{CardList}
+						  <ReactPaginate 
+						  pageCount={this.state.totalPages || 1} 
+						  pageRangeDisplayed={5} 
+						  marginPagesDisplayed={2}
+						  previousLabel="上一页"
+						  nextLabel="下一页"
+						  containerClassName="pagination"
+						  onPageChange={this.handlePageChange}
+						  >
+						  </ReactPaginate>
+						</div>
 			)
 	}
 }
