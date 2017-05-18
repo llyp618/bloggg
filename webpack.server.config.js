@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var fs = require('fs');
 module.exports = {
 	entry:'./server/app.js',
 	output:{
@@ -7,10 +8,10 @@ module.exports = {
 		filename:'server.js',
 		libraryTarget:'commonjs'
 	},
-	target:'node',
+	target:'node',     //不打包nodejs原生模块
 	node:{
-		__filename:true,
-		__dirname:true
+		__filename:false,
+		__dirname:false
 	},
 	module:{
 		loaders:[
@@ -51,19 +52,15 @@ module.exports = {
 
 		]
 	},
-	externals:[{
-		'mongoose':'mongoose',
-		'express':'express',
-		'config-lite':'config-lite'
-	}
-	],
+	externals:fs.readdirSync(path.resolve(__dirname, 'node_modules')).concat([    //node_modules 中的模块不打包
+    'react-dom/server'   
+  ]).reduce(function (ext, mod) {
+    ext[mod] = 'commonjs ' + mod
+    return ext
+  }, {}),
 	plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.DedupePlugin(),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {warnings: false},
-        //     comments: false
-        // }),
         new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)})
 	]
 }
