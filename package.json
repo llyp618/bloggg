@@ -4,7 +4,7 @@
   "description": "my first website",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --history-api-fallback",
     "build": "NODE_ENV=production webpack --config webpack.pro.config.js",
     "server": "supervisor -harmony server/app",
     "ser": "webpack --config webpack.server.config.js"

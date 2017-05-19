@@ -149,7 +149,7 @@ router.post('/blog_delete',function(req,res,next){
 	})
 })
 // 获取分类
-router.get('/blog_classify_list',function(req,res,next){
+router.post('/blog_classify_list',function(req,res,next){
 	classifyModel.getList(function(status,docs){
 		if(status == 'failed'){
 			res.json({
@@ -217,7 +217,7 @@ router.post('/delete_comment',function(req,res,next){
 })
 
 //获取所有文章标题
-router.get('/get_titles',function(req,res,next){
+router.post('/get_titles',function(req,res,next){
 	commentModel.get_titles(function(err,docs){
 		if(err) console.error(err)
 		var titles = [],titleJson = {}

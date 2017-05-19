@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin'; 
-import {Router,hashHistory} from 'react-router';
+import {Router,browserHistory,match} from 'react-router';
 import routes from './routes'
 injectTapEventPlugin();
-ReactDOM.render(<Router routes={routes} history={hashHistory}></Router>,document.getElementById('app'));
+match({history:browserHistory,routes},(err,redirect,renderProps)=> {
+ReactDOM.render(<Router routes={routes} history={browserHistory}></Router>,document.getElementById('app'));
+})

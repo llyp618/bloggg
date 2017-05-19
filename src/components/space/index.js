@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Auth from '../../partial/spaceAuth';
 import Loading from '../../partial/loading/loading';
-import {hashHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 import './space.less';
 
 class Space extends React.Component{
@@ -27,7 +27,7 @@ class Space extends React.Component{
 	}
 	logout = () => {
 		sessionStorage.removeItem('access_token');
-		hashHistory.push('/blog');
+		browserHistory.push('/blog');
 	}
 	render(){
 		if(!this.state.loaded){
@@ -39,23 +39,23 @@ class Space extends React.Component{
 				</div>
 			)
 		}
-		let sHash = window.location.hash;
+		let sPath = window.location.pathname;
 		return (
 			<div className="main-content">
 				<div className="space-container">
 				  <Card className="contents-header">
 				  	<div className="switch-contents"> 
 					  	<Link to="/space/space_blog_list">
-					  		<RaisedButton label="文 章" className="btn" secondary={sHash == "#/space/space_blog_list" || sHash == "#/space"} />
+					  		<RaisedButton label="文 章" className="btn" secondary={sPath == "/space/space_blog_list" || sPath == "/space"} />
 					  	</Link>
 					  	<Link to="/space/space_comment_list">
-				  			<RaisedButton label="评 论" className="btn" secondary={sHash == "#/space/space_comment_list"} />
+				  			<RaisedButton label="评 论" className="btn" secondary={sPath == "/space/space_comment_list"} />
 					  	</Link>
 					  	<Link to="/space/space_classify_list">
-				  			<RaisedButton label="类目" className="btn" secondary={sHash == "#/space/space_classify_list"} />
+				  			<RaisedButton label="类目" className="btn" secondary={sPath == "/space/space_classify_list"} />
 					  	</Link> 
 				  	</div>
-				  	<div className={(sHash == "#/space/space_blog_list" || sHash == "#/space") ? "add-blog" : "add-blog hide"}>
+				  	<div className={(sPath == "/space/space_blog_list" || sPath == "/space") ? "add-blog" : "add-blog hide"}>
 					  	<Link to="/space/space_article_edit">
 					  		<RaisedButton label="新 增" primary={true} />
 					  	</Link>

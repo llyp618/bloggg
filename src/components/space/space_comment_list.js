@@ -34,7 +34,12 @@ class SpaceCommentList extends React.Component{
 		});
 	}
 	getTitleSources = () => {
-		fetch('/api/space/get_titles').then((res) => {
+		fetch('/api/space/get_titles',{
+			method:'POST',
+			headers:{
+				'Content-type':'application/json'
+			}
+		}).then((res) => {
 			return res.json()
 		}).then((data) => {
 			this.setState({
@@ -144,9 +149,9 @@ class SpaceCommentList extends React.Component{
 		})
 		if (commentTr.length == 0) {
 			commentTr.push(
-				<div style={{textAlign:'center',padding:20}}>
-					无数据
-				</div>
+				<TableRow selectable={false} key={0}>
+					<TableRowColumn>无数据</TableRowColumn>
+	      			</TableRow>
 			)
 		}
 		return (

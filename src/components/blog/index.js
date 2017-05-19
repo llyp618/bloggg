@@ -3,7 +3,7 @@ import Page from '../../partial/page/page.js';
 import Loading from '../../partial/loading/loading';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import {Link,hashHistory} from 'react-router';
+import {Link} from 'react-router';
 import 'whatwg-fetch';
 import ReactPaginate from 'react-paginate';
 class Blog extends React.Component {
@@ -28,9 +28,8 @@ class Blog extends React.Component {
 		}
 	}
 	componentWillReceiveProps(nextProps) {  
-		if(nextProps.location.action == 'POP'){
-			this.getBlogList(1,nextProps.params.classify || 'all')
-		}
+		// console.log(nextProps.params.classify)
+		this.getBlogList(1,nextProps.params.classify || 'all')
 	}
 	componentDidMount(){
 		this.getBlogList(1,this.state.classify);

@@ -6,6 +6,7 @@ import Menu from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
+import {browserHistory} from 'react-router';
 import './page.less';
 class Page extends React.Component {
 	constructor(props){
@@ -20,22 +21,18 @@ class Page extends React.Component {
 	handleClose = () => this.setState({open: false})
 
 	itemTouchtapHandler = (event,item,index) => {
-		let nextHash = item.props.value;
-		//bug
-		if(nextHash == '#/visit/blog') {
-			nextHash = '#/visit/blog/all'
-		}
-		window.location.hash = nextHash;
+		let nextPath = item.props.value;
+		
+		browserHistory.push(nextPath)
 		this.setState({
 			open:!this.state.open
 		})
 	}
-	componentWillMount() {
+	componentDidMount() {
 		window.scrollTo(0,0)
 	}
 	render(){
-		
-		let sHashRoot = window.location.hash.match(/#\/[^\/]*/)[0];
+		let sPathRoot = this.props.sPathRoot;
 		return (
 				<div className="main-page">
 					<AppBar title="LuLu's Blog" onLeftIconButtonTouchTap={this.drawerToggle} style={{position:"fixed",top:0}} />
@@ -45,10 +42,10 @@ class Page extends React.Component {
 					    iconElementLeft={<IconButton><FontIcon className="iconfont icon-home2" /></IconButton>}
 					    onTitleTouchTap={this.handleClose}
 				     />
-				     	<Menu className="left-menu" width={200} onItemTouchTap={this.itemTouchtapHandler} value={sHashRoot}>
-							<MenuItem value="#/blog"  primaryText={<span><span className="iconfont icon-bokefenlei"></span>Blog</span>} />
-							<MenuItem value="#/daily" primaryText={<span><span className="iconfont icon-xiangji1"></span>Daily</span>} />
-							<MenuItem value="#/space" primaryText={<span><span className="iconfont icon-pussy"></span>Space</span>} />
+				     	<Menu className="left-menu" width={200} onItemTouchTap={this.itemTouchtapHandler} value={sPathRoot}>
+							<MenuItem value="/blog"  primaryText={<span><span className="iconfont icon-bokefenlei"></span>Blog</span>} />
+							<MenuItem value="/daily" primaryText={<span><span className="iconfont icon-xiangji1"></span>Daily</span>} />
+							<MenuItem value="/space" primaryText={<span><span className="iconfont icon-pussy"></span>Space</span>} />
 							</Menu>
 					</Drawer>
 						{this.props.children}

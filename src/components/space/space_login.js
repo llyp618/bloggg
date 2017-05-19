@@ -1,5 +1,5 @@
 import React from 'react';
-import {hashHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 import Page from '../../partial/page/page';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -64,7 +64,7 @@ class LoginBox extends React.Component{
 			}else if (data.status == 1){
 				const token = data.access_token;
 				sessionStorage.setItem('access_token',token);
-				hashHistory.push('/space/space_blog_list');
+				browserHistory.push('/space/space_blog_list');
 			}
 		})
 	}

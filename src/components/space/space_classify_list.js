@@ -14,7 +14,12 @@ class SpaceClassifyList extends React.Component{
 	}
 	componentDidMount() {
 		Auth(()=>{
-			fetch('/api/space/blog_classify_list')
+			fetch('/api/space/blog_classify_list',{
+				method:"POST",
+				headers:{
+					'Content-Type':'application/json'
+				}
+			})
 			.then((res) => {
 				return res.json()
 			})

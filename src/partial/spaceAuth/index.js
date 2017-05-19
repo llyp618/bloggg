@@ -1,4 +1,4 @@
-import {hashHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 import 'whatwg-fetch';
 const Auth = (cb) => {
 	fetch('/api/space/space_auth',{
@@ -13,7 +13,7 @@ const Auth = (cb) => {
 	}).
 	then((data) => {
 		if(data.status == 0){
-			hashHistory.push('/space/space_login');
+			browserHistory.push('/space/space_login');
 		}else if(data.status == 1){
 			cb();
 		}

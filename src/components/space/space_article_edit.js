@@ -11,7 +11,7 @@ import highlightJs from 'highlight.js';
 import '../article/hightlight.css';
 import Auth from '../../partial/spaceAuth';
 import Loading from '../../partial/loading/loading';
-import {hashHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 marked.setOptions({
 	renderer: new marked.Renderer(),
   gfm: true,
@@ -118,7 +118,12 @@ class SpaceArticleEdit extends React.Component{
 					loaded:true
 				})
 			};
-			fetch('/api/space/blog_classify_list')
+			fetch('/api/space/blog_classify_list',{
+				method:'POST',
+				headers:{
+					'Content-Type':'application/json'
+				}
+			})
 			.then((res) => {
 				return res.json()
 			})
@@ -168,7 +173,7 @@ class SpaceArticleEdit extends React.Component{
 					dialog_words:'保存失败！请检查服务！'
 				});
 			}else {
-				hashHistory.push('/space/space_blog_list');
+				browserHistory.push('/space/space_blog_list');
 			}
 		})
 	}

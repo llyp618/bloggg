@@ -1,5 +1,5 @@
 import React from 'react';
-import {Router,Route,hashHistory,IndexRoute,Redirect} from 'react-router';
+import {Router,Route,browserHistory,IndexRoute,Redirect} from 'react-router';
 import '../normalize.css';
 import '../common.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -40,16 +40,16 @@ class App extends React.Component {  //组件名首字母一定要大写
 		}
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.checkDeviceWidth()
 		window.onresize = this.checkDeviceWidth;
 	}
 	render(){
-		let sHashRoot = window.location.hash.match(/#\/[^\/]*/)[0];
-		let isHome = sHashRoot == '#/';   //需要优化
+		let sPathRoot = this.props.location.pathname.match(/\/[^\/]*/)[0];
+		let isHome = sPathRoot == '/';   //需要优化
 		return (
 			<MuiThemeProvider>
-				<Page isHome={isHome} isLeftMenu={isHome ? false : this.state.isLeftMenu} isLeftMenuDocked={this.state.isLeftMenuDocked}>
+				<Page isHome={isHome} isLeftMenu={isHome ? false : this.state.isLeftMenu} isLeftMenuDocked={this.state.isLeftMenuDocked} sPathRoot={sPathRoot}>
 					{this.props.children}
 				</Page>
 			</MuiThemeProvider>

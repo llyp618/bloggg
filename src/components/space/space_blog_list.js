@@ -29,7 +29,12 @@ class SpaceBlogList extends React.Component{
 		Auth(()=> {
 			this.getBlogList(1,'all');
 			// 分类列表
-			fetch('/api/space/blog_classify_list')
+			fetch('/api/space/blog_classify_list',{
+				method:'POST',
+				headers:{
+					'Content-Type':'application/json'
+				}
+			})
 			.then((res) => {
 				return res.json()
 			})
