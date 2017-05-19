@@ -46,6 +46,7 @@ function renderPage(appHtml) {
 	    <meta name="keywords" content="React Blog,React 博客,React+Node.js,React+express">
 	    <meta name="description" content="由React+Express+MongoDB搭建的个人博客">
 	    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	    <meta name="baidu-site-verification" content="eHO8E7C6oP" />
 	    <title>Lu的博客</title>
 	    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_muh7h53d0tpam7vi.css">
            <link href="/styles.css" rel="stylesheet"></head>

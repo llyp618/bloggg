@@ -93,29 +93,29 @@
 	app.use(bodyParser());
 
 	app.get('*', function (req, res) {
-	  match({ routes: routes, location: req.url }, function (err, redirect, props) {
-	    if (err) {
-	      res.status(500).send(err.message);
-	    } else if (redirect) {
-	      res.redirect(redirect.pathname + redirect.search);
-	    } else if (props) {
-	      var appHtml = renderToString(React.createElement(RouterContext, props));
-	      res.send(renderPage(appHtml));
-	    } else {
-	      res.status(404).send('Not Found');
-	    }
-	  });
+			match({ routes: routes, location: req.url }, function (err, redirect, props) {
+					if (err) {
+							res.status(500).send(err.message);
+					} else if (redirect) {
+							res.redirect(redirect.pathname + redirect.search);
+					} else if (props) {
+							var appHtml = renderToString(React.createElement(RouterContext, props));
+							res.send(renderPage(appHtml));
+					} else {
+							res.status(404).send('Not Found');
+					}
+			});
 	});
 
 	function renderPage(appHtml) {
-	  return '\n       <!DOCTYPE html>\n\t<html>\n\t  <head>\n\t    <meta charset="UTF-8">\n\t    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">\n\t    <meta name="keywords" content="React Blog,React \u535A\u5BA2,React+Node.js,React+express">\n\t    <meta name="description" content="\u7531React+Express+MongoDB\u642D\u5EFA\u7684\u4E2A\u4EBA\u535A\u5BA2">\n\t    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">\n\t    <title>Lu\u7684\u535A\u5BA2</title>\n\t    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_muh7h53d0tpam7vi.css">\n           <link href="/styles.css" rel="stylesheet"></head>\n\t  <body>\n\t  \t<div id="app"> ' + appHtml + '</div>\n\t  \t</div><script type="text/javascript" src="/vendor.bundle.js"></script><script type="text/javascript" src="/bundle.js"></script></body>\n\t</html>\n   ';
+			return '\n       <!DOCTYPE html>\n\t<html>\n\t  <head>\n\t    <meta charset="UTF-8">\n\t    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">\n\t    <meta name="keywords" content="React Blog,React \u535A\u5BA2,React+Node.js,React+express">\n\t    <meta name="description" content="\u7531React+Express+MongoDB\u642D\u5EFA\u7684\u4E2A\u4EBA\u535A\u5BA2">\n\t    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">\n\t    <meta name="baidu-site-verification" content="eHO8E7C6oP" />\n\t    <title>Lu\u7684\u535A\u5BA2</title>\n\t    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_muh7h53d0tpam7vi.css">\n           <link href="/styles.css" rel="stylesheet"></head>\n\t  <body>\n\t  \t<div id="app"> ' + appHtml + '</div>\n\t  \t</div><script type="text/javascript" src="/vendor.bundle.js"></script><script type="text/javascript" src="/bundle.js"></script></body>\n\t</html>\n   ';
 	}
 	routers(app);
 
 	var server = app.listen(config.port, function () {
-	  var host = server.address().address;
-	  var port = server.address().port;
-	  console.log('listening at port:', port);
+			var host = server.address().address;
+			var port = server.address().port;
+			console.log('listening at port:', port);
 	});
 
 /***/ }),
