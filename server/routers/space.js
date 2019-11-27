@@ -5,7 +5,7 @@ var classifyModel = require('../models/classify.model')
 var commentModel = require('../models/comment.model')
 var moment = require('moment')
 var router = express.Router()
-var sha1 = require('sha1')
+// var sha1 = require('sha1')
 var jwt = require('jsonwebtoken')
 // token 验证
 router.post('/space_auth',function(req,res,next){
@@ -30,7 +30,7 @@ router.post('/space_auth',function(req,res,next){
 router.post('/space_login',function(req,res,next){
 	var account = req.body.account
 	var password = req.body.password
-	if(sha1(account) != config.account || sha1(password) != config.password) {
+	if(account != config.account || password != config.password) {
 		res.json({
 			status:0,
 			msg:'账号或密码错误!'

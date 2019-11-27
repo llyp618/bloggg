@@ -60,10 +60,10 @@ class Page extends React.Component {
 							<a href="http://webpack.github.io/" target="_blank">Webpack</a>
 						</p>
 						<p>
-							Email : &nbsp;&nbsp;&nbsp;lllyp618@163.com &nbsp;&nbsp;(～ o ～)~zZ 
+							Email : &nbsp;&nbsp;&nbsp;lllyp618@163.com &nbsp;&nbsp;
 						</p>
 						<p>
-							浙ICP备17019260号
+						(～ o ～)~zZ(～ o ～)~zZ(～ o ～)~zZ(～ o ～)~zZ
 						</p>
 					</div>
 				</div>
